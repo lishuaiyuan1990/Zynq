@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\ParaSetWidget.ui'
 #
-# Created: Sun Sep 24 17:08:33 2017
+# Created: Sun Sep 24 17:50:20 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -102,7 +102,7 @@ class Ui_ParaSetWidget(object):
         self.label_6.setObjectName(_fromUtf8("label_6"))
         self.horizontalLayout_8.addWidget(self.label_6)
         self.m_gain = QtGui.QDoubleSpinBox(self.layoutWidget)
-        self.m_gain.setMaximum(110.0)
+        self.m_gain.setMaximum(96.0)
         self.m_gain.setSingleStep(0.1)
         self.m_gain.setProperty("value", 35.0)
         self.m_gain.setObjectName(_fromUtf8("m_gain"))
@@ -220,6 +220,7 @@ class Ui_ParaSetWidget(object):
         self.gridLayout_5.addLayout(self.horizontalLayout_15, 2, 0, 1, 1)
 
         self.retranslateUi(ParaSetWidget)
+        self.m_prf.setCurrentIndex(7)
         QtCore.QMetaObject.connectSlotsByName(ParaSetWidget)
 
     def retranslateUi(self, ParaSetWidget):
@@ -244,7 +245,7 @@ class Ui_ParaSetWidget(object):
         self.m_eVoltage.setItemText(4, _translate("ParaSetWidget", "100", None))
         self.m_eVoltage.setItemText(5, _translate("ParaSetWidget", "50", None))
         self.label_10.setText(_translate("ParaSetWidget", "采样个数", None))
-        self.label_6.setText(_translate("ParaSetWidget", "增益", None))
+        self.label_6.setText(_translate("ParaSetWidget", "增益(dB)", None))
         self.label_11.setText(_translate("ParaSetWidget", "接收通道", None))
         self.m_recvChanNo.setItemText(0, _translate("ParaSetWidget", "通道1", None))
         self.m_recvChanNo.setItemText(1, _translate("ParaSetWidget", "通道2", None))

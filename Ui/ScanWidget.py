@@ -64,14 +64,14 @@ class AScanMplCanvas(MyMplCanvas):
     
     def drawData(self, scanData):
         self.axes.plot(scanData['x'], scanData['y'])
+        self.axes.grid(True, linestyle = "-.")
         self.draw()
 
 class AScanWidget(QWidget):
     def __init__(self,  parent = None):
         QWidget.__init__(self, parent)
-        self.main_widget = QWidget(self)
         layout = QVBoxLayout()
-        self.m_aScanCanvas = AScanMplCanvas(self.main_widget)
+        self.m_aScanCanvas = AScanMplCanvas(self)
         toolBar = NavToolbar(self.m_aScanCanvas, self) # only save button
         layout.addWidget(toolBar)
         layout.addWidget(self.m_aScanCanvas)

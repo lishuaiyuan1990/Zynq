@@ -119,7 +119,8 @@ class ParaSetWidget(ParaSetWidgetUi):
     
     def setGain(self):
         gain = self.ui.m_gain.value()
-        self.writePara(0x0A,gain)
+        sendData = ((100 - gain) / 200 + 1) * 2 ** 9
+        self.writePara(0x0A, sendData)
     
     def setSonicPD(self):
         sonicPD = self.ui.m_sonicPD.value()

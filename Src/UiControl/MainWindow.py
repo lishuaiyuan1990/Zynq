@@ -131,9 +131,8 @@ class MainWindow(MainWindowUi):
         return
     
     def drawAScanData(self, dataList, drawClock, drawInterval, firstTime = False):
-#        dataList = []
-#        for i in range(0, 10):
-#            dataList.append([random.randint(-100, 100) for i in range(1250)])
+        if not self.m_startSys:
+            return
         if firstTime and not self.m_drawDone:
             self.m_stopDraw = True
             self.m_drawThread = threading.Timer(drawInterval, self.drawAScanData, [dataList, drawClock, drawInterval, True])
@@ -166,7 +165,7 @@ class MainWindow(MainWindowUi):
         self.m_parseThread = threading.Timer(0.1, self.parseFrameDataAndDraw, [data])
         self.m_parseThread.start()
         
-        file = open("text_%d" % self.m_clockTimes, 'wb')
+        file = open("./data/text_%d" % self.m_clockTimes, 'wb')
         file.write(data)
         file.close()
         #one page read done
