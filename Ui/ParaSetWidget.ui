@@ -6,23 +6,41 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>258</width>
-    <height>468</height>
+    <width>264</width>
+    <height>465</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ParaSet</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>11</y>
-     <width>231</width>
+     <width>241</width>
      <height>431</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_5">
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_12">
+      <item>
+       <widget class="QPushButton" name="m_startSysBtn">
+        <property name="text">
+         <string>配置DMA</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="m_stopSysBtn">
+        <property name="text">
+         <string>停止</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
@@ -87,6 +105,9 @@
           <property name="text">
            <string>通道使能</string>
           </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
        </layout>
@@ -105,7 +126,38 @@
              </widget>
             </item>
             <item>
-             <widget class="QDoubleSpinBox" name="m_eVoltage"/>
+             <widget class="QComboBox" name="m_eVoltage">
+              <item>
+               <property name="text">
+                <string>500</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>400</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>300</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>200</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>100</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>50</string>
+               </property>
+              </item>
+             </widget>
             </item>
            </layout>
           </item>
@@ -133,7 +185,17 @@
              </widget>
             </item>
             <item>
-             <widget class="QDoubleSpinBox" name="m_gain"/>
+             <widget class="QDoubleSpinBox" name="m_gain">
+              <property name="maximum">
+               <double>110.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.100000000000000</double>
+              </property>
+              <property name="value">
+               <double>35.000000000000000</double>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -197,12 +259,19 @@
             <item>
              <widget class="QLabel" name="label_8">
               <property name="text">
-               <string>声速</string>
+               <string>声速(m/s)</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QDoubleSpinBox" name="m_sonicV"/>
+             <widget class="QDoubleSpinBox" name="m_sonicV">
+              <property name="maximum">
+               <double>10000.000000000000000</double>
+              </property>
+              <property name="value">
+               <double>5950.000000000000000</double>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -211,32 +280,7 @@
         <item row="1" column="0">
          <layout class="QGridLayout" name="gridLayout">
           <item row="5" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_13">
-            <item>
-             <widget class="QLabel" name="label_12">
-              <property name="text">
-               <string>增益范围</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QRadioButton" name="m_gainRange0Btn">
-              <property name="text">
-               <string>0-39(DB)</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QRadioButton" name="m_gainRange1Btn">
-              <property name="text">
-               <string>40-110(DB)</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <layout class="QHBoxLayout" name="horizontalLayout_13"/>
           </item>
           <item row="3" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -262,7 +306,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QDoubleSpinBox" name="m_offset"/>
+             <widget class="QDoubleSpinBox" name="m_offset">
+              <property name="value">
+               <double>20.000000000000000</double>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -296,12 +344,25 @@
             <item>
              <widget class="QLabel" name="label_5">
               <property name="text">
-               <string>脉冲宽度</string>
+               <string>探头频率</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QDoubleSpinBox" name="m_bandWidth"/>
+             <widget class="QDoubleSpinBox" name="m_probePrf">
+              <property name="minimum">
+               <double>0.500000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>15.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.250000000000000</double>
+              </property>
+              <property name="value">
+               <double>2.500000000000000</double>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -310,12 +371,73 @@
             <item>
              <widget class="QLabel" name="label_3">
               <property name="text">
-               <string>重复频率</string>
+               <string>重复频率(Hz)</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QDoubleSpinBox" name="m_prf"/>
+             <widget class="QComboBox" name="m_prf">
+              <item>
+               <property name="text">
+                <string>80</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>160</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>240</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>400</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>500</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>1000</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>2000</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>4000</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>5000</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>8000</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>10000</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>16000</string>
+               </property>
+              </item>
+             </widget>
             </item>
            </layout>
           </item>
@@ -325,26 +447,19 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_12">
-      <item>
-       <widget class="QPushButton" name="m_startSysBtn">
-        <property name="text">
-         <string>启动</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="m_stopSysBtn">
-        <property name="text">
-         <string>停止</string>
-        </property>
-       </widget>
-      </item>
+    <item row="2" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_15">
       <item>
        <widget class="QPushButton" name="m_sendParaBtn">
         <property name="text">
          <string>发送参数</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="m_openSysBtn">
+        <property name="text">
+         <string>启动系统</string>
         </property>
        </widget>
       </item>
