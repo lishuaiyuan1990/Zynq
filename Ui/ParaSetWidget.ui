@@ -121,12 +121,15 @@
             <item>
              <widget class="QLabel" name="label_4">
               <property name="text">
-               <string>激励电压</string>
+               <string>激励电压(V)</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QComboBox" name="m_eVoltage">
+              <property name="currentIndex">
+               <number>2</number>
+              </property>
               <item>
                <property name="text">
                 <string>500</string>
@@ -265,8 +268,14 @@
             </item>
             <item>
              <widget class="QDoubleSpinBox" name="m_sonicV">
+              <property name="minimum">
+               <double>300.000000000000000</double>
+              </property>
               <property name="maximum">
                <double>10000.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>10.000000000000000</double>
               </property>
               <property name="value">
                <double>5950.000000000000000</double>
@@ -333,12 +342,12 @@
              <widget class="QComboBox" name="m_triggerMode">
               <item>
                <property name="text">
-                <string>1</string>
+                <string>PE</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>2</string>
+                <string>PC</string>
                </property>
               </item>
              </widget>
@@ -350,7 +359,7 @@
             <item>
              <widget class="QLabel" name="label_5">
               <property name="text">
-               <string>探头频率</string>
+               <string>探头频率(MHz)</string>
               </property>
              </widget>
             </item>

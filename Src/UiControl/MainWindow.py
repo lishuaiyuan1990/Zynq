@@ -107,8 +107,11 @@ class MainWindow(MainWindowUi):
         self.stopRecvDataThread)
         self.connect(self.ui.m_paraSetWidget.ui.m_sendParaBtn,  QtCore.SIGNAL("clicked()"),\
         self.setSonicPara)
-        
     
+    #stop sys
+    def closeEvent(self, event):
+        self.ui.m_paraSetWidget.stopSys()
+        
     def setSonicPara(self):
         self.m_AScanLen = (FrameLen - 1) * 2
         self.m_sampleFreq = 100
@@ -129,6 +132,7 @@ class MainWindow(MainWindowUi):
             self.m_startSys = False 
         return
     
+    #main thread
     def createThreadToRecvData(self):
         self.m_startSys = True
         self.m_recvInterval = 1
@@ -144,7 +148,6 @@ class MainWindow(MainWindowUi):
             return
         drawClock = 0
         drawInterval = self.m_recvInterval / len(aScanDataList)
-        drawInterval = 0.5        
         self.m_drawThread = threading.Timer(drawInterval, self.drawAScanData, [aScanDataList, drawClock, drawInterval, True])
         self.m_drawThread.start()
         return
@@ -167,8 +170,8 @@ class MainWindow(MainWindowUi):
         scanData['y'] = data
         scanRange = self.getAScanRange()
         scanData['x'] = np.linspace(scanRange['start'], scanRange['end'], len(data))
-        self.ui.m_aScanWidget.drawData(scanData)
         self.configAxis()
+        self.ui.m_aScanWidget.drawData(scanData)
         drawClock += 1
         if drawClock >= len(dataList) or self.m_stopDraw:
             self.m_stopDraw = False

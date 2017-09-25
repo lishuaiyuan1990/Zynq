@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\ParaSetWidget.ui'
 #
-# Created: Mon Sep 25 10:33:59 2017
+# Created: Mon Sep 25 23:37:05 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -131,7 +131,9 @@ class Ui_ParaSetWidget(object):
         self.label_8.setObjectName(_fromUtf8("label_8"))
         self.horizontalLayout_9.addWidget(self.label_8)
         self.m_sonicV = QtGui.QDoubleSpinBox(self.layoutWidget)
+        self.m_sonicV.setMinimum(300.0)
         self.m_sonicV.setMaximum(10000.0)
+        self.m_sonicV.setSingleStep(10.0)
         self.m_sonicV.setProperty("value", 5950.0)
         self.m_sonicV.setObjectName(_fromUtf8("m_sonicV"))
         self.horizontalLayout_9.addWidget(self.m_sonicV)
@@ -222,6 +224,7 @@ class Ui_ParaSetWidget(object):
         self.gridLayout_5.addLayout(self.horizontalLayout_15, 2, 0, 1, 1)
 
         self.retranslateUi(ParaSetWidget)
+        self.m_eVoltage.setCurrentIndex(2)
         self.m_prf.setCurrentIndex(7)
         QtCore.QMetaObject.connectSlotsByName(ParaSetWidget)
 
@@ -239,7 +242,7 @@ class Ui_ParaSetWidget(object):
         self.m_chanNo.setItemText(6, _translate("ParaSetWidget", "通道7", None))
         self.m_chanNo.setItemText(7, _translate("ParaSetWidget", "通道8", None))
         self.m_chanChecked.setText(_translate("ParaSetWidget", "通道使能", None))
-        self.label_4.setText(_translate("ParaSetWidget", "激励电压", None))
+        self.label_4.setText(_translate("ParaSetWidget", "激励电压(V)", None))
         self.m_eVoltage.setItemText(0, _translate("ParaSetWidget", "500", None))
         self.m_eVoltage.setItemText(1, _translate("ParaSetWidget", "400", None))
         self.m_eVoltage.setItemText(2, _translate("ParaSetWidget", "300", None))
@@ -261,9 +264,9 @@ class Ui_ParaSetWidget(object):
         self.label_7.setText(_translate("ParaSetWidget", "声程", None))
         self.label_9.setText(_translate("ParaSetWidget", "起始偏移(mm)", None))
         self.label_2.setText(_translate("ParaSetWidget", "触发模式", None))
-        self.m_triggerMode.setItemText(0, _translate("ParaSetWidget", "1", None))
-        self.m_triggerMode.setItemText(1, _translate("ParaSetWidget", "2", None))
-        self.label_5.setText(_translate("ParaSetWidget", "探头频率", None))
+        self.m_triggerMode.setItemText(0, _translate("ParaSetWidget", "PE", None))
+        self.m_triggerMode.setItemText(1, _translate("ParaSetWidget", "PC", None))
+        self.label_5.setText(_translate("ParaSetWidget", "探头频率(MHz)", None))
         self.label_3.setText(_translate("ParaSetWidget", "重复频率(Hz)", None))
         self.m_prf.setItemText(0, _translate("ParaSetWidget", "80", None))
         self.m_prf.setItemText(1, _translate("ParaSetWidget", "160", None))

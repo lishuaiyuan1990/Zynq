@@ -96,7 +96,6 @@ class ParaSetWidget(ParaSetWidgetUi):
         prf = self.getPRFValue()
         prf /= 8
         data = int(10 ** 9 / prf / 200)
-        print "data: ",  data
         self.writePara(0x06, data)
         
     def sendChanChecked(self):
@@ -136,9 +135,11 @@ class ParaSetWidget(ParaSetWidgetUi):
         return sonicV
     
     def setOffset(self):
-        cycleTime = 100 #ns
-        offset = int(self.ui.m_offset.value() * 1000 / cycleTime)
-        self.writePara(0x0D,offset)
+        cycleTime = 10 #ns
+        #1000 * m/s -> mm/us
+        adDelay = int(self.ui.m_offset.value() * 1000 / self.ui.m_sonicV.value())
+        sendData = int(adDelay * 1000 / cycleTime)
+        self.writePara(0x0D, sendData)
         self.m_offset = self.ui.m_offset.value()
     
     def getOffset(self):

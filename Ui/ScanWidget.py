@@ -53,18 +53,32 @@ class AScanMplCanvas(MyMplCanvas):
         self.axes.grid(True, linestyle = "-.")
     
     def configXAxis(self, start, end, stepNum,  label = 'x'):
-        self.axes.set_xticks(np.linspace(start, end, stepNum))
-        self.axes.set_xlim(start, end * 1.1)
-        self.axes.set_xlabel(label)
+        self.m_xStart = start
+        self.m_xEnd = end
+        self.m_xStepNum = stepNum
+        self.m_xLabel = label
+    
+    def setXAxis(self):
+        self.axes.set_xticks(np.linspace(self.m_xStart, self.m_xEnd, self.m_xStepNum))
+        self.axes.set_xlim(self.m_xStart, self.m_xEnd * 1.02)
+        self.axes.set_xlabel(self.m_xLabel)
     
     def configYAxis(self, start, end, stepNum,  label = 'y'):
-        self.axes.set_yticks(np.linspace(start, end, stepNum))
-        self.axes.set_ylim(start, end * 1.1)
-        self.axes.set_ylabel(label)
+        self.m_yStart = start
+        self.m_yEnd = end
+        self.m_yStepNum = stepNum
+        self.m_yLabel = label
+        
+    def setYAxis(self):
+        self.axes.set_yticks(np.linspace(self.m_yStart, self.m_yEnd, self.m_yStepNum))
+        self.axes.set_ylim(self.m_yStart, self.m_yEnd * 1.02)
+        self.axes.set_ylabel(self.m_yLabel)
     
     def drawData(self, scanData):
         self.axes.plot(scanData['x'], scanData['y'])
         self.axes.grid(True, linestyle = "-.")
+        self.setXAxis()
+        self.setYAxis()
         self.draw()
 
 class AScanWidget(QWidget):
