@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\ParaSetWidget.ui'
 #
-# Created: Sun Sep 24 17:50:20 2017
+# Created: Mon Sep 25 10:33:59 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -157,6 +157,8 @@ class Ui_ParaSetWidget(object):
         self.label_9.setObjectName(_fromUtf8("label_9"))
         self.horizontalLayout_6.addWidget(self.label_9)
         self.m_offset = QtGui.QDoubleSpinBox(self.layoutWidget)
+        self.m_offset.setMaximum(1000.0)
+        self.m_offset.setSingleStep(10.0)
         self.m_offset.setProperty("value", 20.0)
         self.m_offset.setObjectName(_fromUtf8("m_offset"))
         self.horizontalLayout_6.addWidget(self.m_offset)
@@ -257,7 +259,7 @@ class Ui_ParaSetWidget(object):
         self.m_recvChanNo.setItemText(7, _translate("ParaSetWidget", "通道8", None))
         self.label_8.setText(_translate("ParaSetWidget", "声速(m/s)", None))
         self.label_7.setText(_translate("ParaSetWidget", "声程", None))
-        self.label_9.setText(_translate("ParaSetWidget", "起始偏移", None))
+        self.label_9.setText(_translate("ParaSetWidget", "起始偏移(mm)", None))
         self.label_2.setText(_translate("ParaSetWidget", "触发模式", None))
         self.m_triggerMode.setItemText(0, _translate("ParaSetWidget", "1", None))
         self.m_triggerMode.setItemText(1, _translate("ParaSetWidget", "2", None))

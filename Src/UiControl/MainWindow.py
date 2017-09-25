@@ -76,7 +76,14 @@ class AScanData(object):
         self.iterateFrameData(startIndex = frameHeadIndex, frameStep = 10, cbIterate = self.genAScanList)
         return self.m_parsedFrameDataList
     
+    def limitDataRange(self):
+        maxData = 2 ** 11 - 1
+        return np.array(self.m_parsedFrameDataList) / maxData
+    
     def getAScanList(self):
+        return self.limitDataRange()
+        
+    def getRawAScanList(self):
         return self.m_parsedFrameDataList
         
 class MainWindow(MainWindowUi):
@@ -86,7 +93,6 @@ class MainWindow(MainWindowUi):
         self.ui.m_paraSetWidget.setSocketTransObj(self.m_clientSocketTransObj)
         self.m_startSys = False
         self.m_clockTimes = 1
-        self.m_AScanLen = (FrameLen - 1) * 2
         self.configSignalAndSlot()
         self.setSonicPara()
         self.configAxis()
@@ -95,14 +101,27 @@ class MainWindow(MainWindowUi):
     def configSignalAndSlot(self):
         self.connect(self.ui.m_paraSetWidget.ui.m_openSysBtn,  QtCore.SIGNAL("clicked()"),\
         self.createThreadToRecvData)
+        self.connect(self.ui.m_paraSetWidget.ui.m_openSysBtn,  QtCore.SIGNAL("clicked()"),\
+        self.setSonicPara)
         self.connect(self.ui.m_paraSetWidget.ui.m_stopSysBtn,  QtCore.SIGNAL("clicked()"),\
         self.stopRecvDataThread)
         self.connect(self.ui.m_paraSetWidget.ui.m_sendParaBtn,  QtCore.SIGNAL("clicked()"),\
         self.setSonicPara)
+        
     
     def setSonicPara(self):
+        self.m_AScanLen = (FrameLen - 1) * 2
         self.m_sampleFreq = 100
-        self.m_adDelay = self.ui.m_paraSetWidget.getADDelay()
+        self.m_offset = self.ui.m_paraSetWidget.getOffset()
+        #mm/us
+        self.m_sonicV = self.ui.m_paraSetWidget.getSonicV() / 1000
+    
+    def getAScanRange(self):
+        range = {}
+        range['start'] = self.m_offset
+        sampleTime = 1.0 / self.m_sampleFreq
+        range['end'] = self.m_offset + sampleTime * self.m_AScanLen * self.m_sonicV
+        return range
     
     def stopRecvDataThread(self):
         if self.m_startSys:
@@ -146,11 +165,10 @@ class MainWindow(MainWindowUi):
         data = dataList[drawClock]
         scanData = {}
         scanData['y'] = data
-        sampleTime = 1.0 / self.m_sampleFreq
-        scanData['x'] = np.linspace(self.m_adDelay, \
-        self.m_adDelay + sampleTime * self.m_AScanLen, len(data))
-        self.configAxis()
+        scanRange = self.getAScanRange()
+        scanData['x'] = np.linspace(scanRange['start'], scanRange['end'], len(data))
         self.ui.m_aScanWidget.drawData(scanData)
+        self.configAxis()
         drawClock += 1
         if drawClock >= len(dataList) or self.m_stopDraw:
             self.m_stopDraw = False
@@ -174,11 +192,10 @@ class MainWindow(MainWindowUi):
         if self.m_startSys:
             self.createThreadToRecvData()
     
-    def configAxis(self):
-        sampleTime = 1.0 / self.m_sampleFreq
-        self.ui.m_aScanWidget.configXAxis(self.m_adDelay, \
-        self.m_AScanLen * sampleTime + self.m_adDelay, 10, "us")
-        self.ui.m_aScanWidget.configYAxis(-100, 100, 11, "%")
+    def configAxis(self):        
+        scanRange = self.getAScanRange()
+        self.ui.m_aScanWidget.configXAxis(scanRange['start'], scanRange['end'], 10, "mm")
+        self.ui.m_aScanWidget.configYAxis(0, 100, 11, "Amp")
         
 if __name__ == "__main__":
     import sys

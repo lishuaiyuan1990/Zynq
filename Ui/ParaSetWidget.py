@@ -8,7 +8,7 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.configSignalAndSlot()
         #8 chan
         self.m_chanEnabled = 0xFF
-        self.m_adDelay = 0
+        self.m_offset = 20
     
     def configSignalAndSlot(self):
         self.ui.m_sendParaBtn.clicked.connect(self.sendParaSlot)
@@ -130,14 +130,19 @@ class ParaSetWidget(ParaSetWidgetUi):
         sonicV = self.ui.m_sonicV.value()
         self.writePara(0x0C,sonicV)
     
+    def getSonicV(self):
+        #m/s
+        sonicV = self.ui.m_sonicV.value()
+        return sonicV
+    
     def setOffset(self):
         cycleTime = 100 #ns
         offset = int(self.ui.m_offset.value() * 1000 / cycleTime)
         self.writePara(0x0D,offset)
-        self.m_adDelay = self.ui.m_offset.value()
+        self.m_offset = self.ui.m_offset.value()
     
-    def getADDelay(self):
-        return self.m_adDelay
+    def getOffset(self):
+        return self.m_offset
     
     def setSampleLen(self):
         sampleLen = self.ui.m_sampleLen.value()

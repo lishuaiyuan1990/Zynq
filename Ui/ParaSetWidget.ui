@@ -301,12 +301,18 @@
             <item>
              <widget class="QLabel" name="label_9">
               <property name="text">
-               <string>起始偏移</string>
+               <string>起始偏移(mm)</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QDoubleSpinBox" name="m_offset">
+              <property name="maximum">
+               <double>1000.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>10.000000000000000</double>
+              </property>
               <property name="value">
                <double>20.000000000000000</double>
               </property>
