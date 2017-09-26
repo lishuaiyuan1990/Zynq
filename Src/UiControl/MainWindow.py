@@ -79,8 +79,8 @@ class AScanData(object):
         return self.m_parsedFrameDataList
     
     def limitDataRange(self):
-        maxData = 2 ** 11 - 1
-        return np.array(self.m_parsedFrameDataList) / maxData
+        maxData = 2 ** 11 - 1.0
+        return np.array(self.m_parsedFrameDataList) / maxData * 100
     
     def getAScanList(self):
         return self.limitDataRange()
