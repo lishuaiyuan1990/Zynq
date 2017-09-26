@@ -4,6 +4,8 @@ import numpy as np
 import threading
 import random
 import struct
+import os
+import datetime
 from Ui import MainWindowUi
 from Src.TransLib import SocketTrans
 
@@ -185,15 +187,23 @@ class MainWindow(MainWindowUi):
         data = self.m_clientSocketTransObj.recvData(max_pkg_len)
         self.m_parseThread = threading.Timer(0.1, self.parseFrameDataAndDraw, [data])
         self.m_parseThread.start()
-        
-        file = open("./data/text_%d" % self.m_clockTimes, 'wb')
-        file.write(data)
-        file.close()
         #one page read done
         self.m_clientSocketTransObj.writePara(0xDDDD)
         self.m_clockTimes += 1
         if self.m_startSys:
+            self.saveScanDataToFile(data)
             self.createThreadToRecvData()
+        return
+    #append data to file
+    def saveScanDataToFile(self, data):
+        fileName = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        dataPath = "./dmaData"
+        if not os.path.exists(dataPath):
+            os.makedirs(dataPath)
+        file = open("%s/%s" % (dataPath, fileName), 'wb+')
+        file.write(data)
+        file.close()
+        
     
     def configAxis(self):        
         scanRange = self.getAScanRange()

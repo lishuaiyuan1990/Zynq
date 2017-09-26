@@ -9,6 +9,7 @@ class ParaSetWidget(ParaSetWidgetUi):
         #8 chan
         self.m_chanEnabled = 0xFF
         self.m_offset = 20
+        self.m_haveSendPara = False
     
     def configSignalAndSlot(self):
         self.ui.m_sendParaBtn.clicked.connect(self.sendParaSlot)
@@ -30,8 +31,23 @@ class ParaSetWidget(ParaSetWidgetUi):
     
     def stopSys(self):
         #stop sys
-        self.m_clientSocketTransObj.writePara(0x00030000)
+        #self.writePara(0x03, 0)
         self.closeSys()
+    
+    def closeSys(self):
+        self.writePara(0x04, 0)
+
+    def openSys(self):
+        if not self.m_haveSendPara:
+            self.startSys()
+            self.sendParaSlot()
+            self.writePara(0x04, 1)
+        else:
+            self.reStartSys()
+    
+    def reStartSys(self):
+        #self.writePara(0x03, 1)
+        self.writePara(0x04, 1)
     
     def setSocketTransObj(self,  socketTrans):
         self.m_clientSocketTransObj = socketTrans
@@ -67,20 +83,13 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.setSampleLen()
         self.setRecvChanNo()
         self.setGainRangeNo()
+        self.m_haveSendPara = True
     
     def writePara(self, handle, para = 0):
         chanNo = int(self.ui.m_chanNo.currentIndex())
         data = (handle << 24) + (chanNo << 16)  + int(para)
         print "writePara %0#8X" % data
         self.m_clientSocketTransObj.writePara(data)
-    
-    def closeSys(self):
-        self.writePara(0x04, 0)
-
-    def openSys(self):
-        self.startSys()
-        self.sendParaSlot()
-        self.writePara(0x04, 1)
     
     def setTriggerMode(self):
         triggerMode = self.ui.m_triggerMode.currentIndex()

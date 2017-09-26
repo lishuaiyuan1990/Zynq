@@ -2,3 +2,4 @@ dist/
 build/Main
 data/
 *.pyc
+dmaData/
