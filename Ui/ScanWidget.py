@@ -30,7 +30,7 @@ class MyMplCanvas(FigureCanvas):
         self.axes = fig.add_subplot(111)
         fig.suptitle(title)
         # We want the axes cleared every time plot() is called
-        self.axes.hold(False)
+        #self.axes.hold(False)
         FigureCanvas.__init__(self, fig)
         self.setParent(parent)
         FigureCanvas.setSizePolicy(self, QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -51,6 +51,8 @@ class AScanMplCanvas(MyMplCanvas):
     def __init__(self, parent = None, title='AScan'):
         MyMplCanvas.__init__(self, parent, title)
         self.axes.grid(True, linestyle = "-.")
+        self.m_aScanPlotter = None
+        self.m_gatePlotter = {'#FF0000': None, '#0000FF': None, '#00FF00': None}
     
     def configXAxis(self, start, end, stepNum,  label = 'x'):
         self.m_xStart = start
@@ -75,11 +77,30 @@ class AScanMplCanvas(MyMplCanvas):
         self.axes.set_ylabel(self.m_yLabel)
     
     def drawData(self, scanData):
-        self.axes.plot(scanData['x'], scanData['y'])
+        if self.m_aScanPlotter == None:
+            self.m_aScanPlotter, = self.axes.plot(scanData['x'], scanData['y'])
+        else:
+            self.m_aScanPlotter.set_data(scanData['x'], scanData['y'])
         self.axes.grid(True, linestyle = "-.")
         self.setXAxis()
         self.setYAxis()
         self.draw()
+    def drawGate(self, gate):
+        if not gate.m_enabled:
+            datax = [gate.m_start]
+            datay = [gate.m_threshold]
+        else:
+            datax = [gate.m_start, gate.m_start + gate.m_len]
+            datay = [gate.m_threshold, gate.m_threshold]
+        colorStr = gate.m_color
+        if self.m_gatePlotter[colorStr] is None:
+            self.m_gatePlotter[colorStr],  = self.axes.plot(np.array(datax),  colorStr)
+        else:
+            self.m_gatePlotter[colorStr].set_data(np.array(datax),  np.array(datay))
+#        self.axes.grid(True, linestyle = "-.")
+#        self.setXAxis()
+#        self.setYAxis()
+#        self.draw()
 
 class AScanWidget(QWidget):
     def __init__(self,  parent = None):
@@ -99,6 +120,9 @@ class AScanWidget(QWidget):
     
     def drawData(self, data):
         self.m_aScanCanvas.drawData(data)
+    
+    def drawGate(self, gate):
+        self.m_aScanCanvas.drawGate(gate)
         
 
 class ApplicationWindow(QMainWindow):

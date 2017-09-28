@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>937</width>
-    <height>479</height>
+    <width>925</width>
+    <height>633</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -26,7 +26,7 @@
       <x>660</x>
       <y>10</y>
       <width>261</width>
-      <height>441</height>
+      <height>611</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -42,7 +42,7 @@
       <x>10</x>
       <y>10</y>
       <width>631</width>
-      <height>441</height>
+      <height>611</height>
      </rect>
     </property>
    </widget>

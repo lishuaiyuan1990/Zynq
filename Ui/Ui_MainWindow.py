@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\MainWindow.ui'
 #
-# Created: Mon Sep 25 23:37:03 2017
+# Created: Thu Sep 28 10:21:55 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,8 +26,8 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(937, 479)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
+        MainWindow.resize(925, 633)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
@@ -35,7 +35,7 @@ class Ui_MainWindow(object):
         self.centralWidget = QtGui.QWidget(MainWindow)
         self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
         self.m_paraSetWidget = ParaSetWidget(self.centralWidget)
-        self.m_paraSetWidget.setGeometry(QtCore.QRect(660, 10, 261, 441))
+        self.m_paraSetWidget.setGeometry(QtCore.QRect(660, 10, 261, 611))
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -43,7 +43,7 @@ class Ui_MainWindow(object):
         self.m_paraSetWidget.setSizePolicy(sizePolicy)
         self.m_paraSetWidget.setObjectName(_fromUtf8("m_paraSetWidget"))
         self.m_aScanWidget = AScanWidget(self.centralWidget)
-        self.m_aScanWidget.setGeometry(QtCore.QRect(10, 10, 631, 441))
+        self.m_aScanWidget.setGeometry(QtCore.QRect(10, 10, 631, 611))
         self.m_aScanWidget.setObjectName(_fromUtf8("m_aScanWidget"))
         MainWindow.setCentralWidget(self.centralWidget)
 
