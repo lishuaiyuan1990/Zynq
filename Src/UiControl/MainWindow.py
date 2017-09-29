@@ -44,16 +44,27 @@ class MainWindow(MainWindowUi):
         self.m_AScanLen = (FrameLen - 1) * 2
         self.m_sampleFreq = 100
         self.m_offset = self.ui.m_paraSetWidget.getOffset()
+        self.m_sonicPD = self.ui.m_paraSetWidget.getSonicPD()
         #mm/us
         self.m_sonicV = self.ui.m_paraSetWidget.getSonicV() / 1000
         self.m_gate1 = self.ui.m_paraSetWidget.getGate1()
         self.m_gate2 = self.ui.m_paraSetWidget.getGate2()
     
     def getAScanRange(self):
+        self.setSonicPara()
         range = {}
         range['start'] = self.m_offset
         sampleTime = 1.0 / self.m_sampleFreq
         range['end'] = self.m_offset + sampleTime * self.m_AScanLen * self.m_sonicV
+        return range
+    
+    def getXAxisRange(self):
+        self.setSonicPara()
+        range = {}
+        range['start'] = self.m_offset
+        range['end'] = self.m_offset + self.m_sonicPD
+        #sampleTime = 1.0 / self.m_sampleFreq
+        #range['end'] = self.m_offset + sampleTime * self.m_AScanLen * self.m_sonicV
         return range
     
     def stopRecvDataThread(self):
@@ -139,7 +150,7 @@ class MainWindow(MainWindowUi):
         
     
     def configAxis(self):        
-        scanRange = self.getAScanRange()
+        scanRange = self.getXAxisRange()
         self.ui.m_aScanWidget.configXAxis(scanRange['start'], scanRange['end'], 10, "mm")
         self.ui.m_aScanWidget.configYAxis(0, 100, 11, "Amp")
         

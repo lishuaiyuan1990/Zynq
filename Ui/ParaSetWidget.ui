@@ -298,12 +298,25 @@
               <item>
                <widget class="QLabel" name="label_7">
                 <property name="text">
-                 <string>声程</string>
+                 <string>声程(mm)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QDoubleSpinBox" name="m_sonicPD"/>
+               <widget class="QDoubleSpinBox" name="m_sonicPD">
+                <property name="minimum">
+                 <double>10.000000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>3000.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>10.000000000000000</double>
+                </property>
+                <property name="value">
+                 <double>300.000000000000000</double>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -496,6 +509,9 @@
           <property name="text">
            <string>闸门1</string>
           </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item>
@@ -509,8 +525,14 @@
           </item>
           <item>
            <widget class="QDoubleSpinBox" name="m_gate1Threshold">
+            <property name="minimum">
+             <double>1.000000000000000</double>
+            </property>
             <property name="maximum">
-             <double>100.000000000000000</double>
+             <double>99.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>50.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -532,7 +554,13 @@
           <item>
            <widget class="QDoubleSpinBox" name="m_gate1Start">
             <property name="maximum">
-             <double>10000.000000000000000</double>
+             <double>2999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>50.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -549,8 +577,17 @@
           </item>
           <item>
            <widget class="QDoubleSpinBox" name="m_gate1Len">
+            <property name="minimum">
+             <double>1.000000000000000</double>
+            </property>
             <property name="maximum">
-             <double>10000.000000000000000</double>
+             <double>3000.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>100.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -569,6 +606,9 @@
           <property name="text">
            <string>闸门2</string>
           </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item>
@@ -582,8 +622,14 @@
           </item>
           <item>
            <widget class="QDoubleSpinBox" name="m_gate2Threshold">
+            <property name="minimum">
+             <double>1.000000000000000</double>
+            </property>
             <property name="maximum">
-             <double>100.000000000000000</double>
+             <double>99.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>50.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -605,7 +651,13 @@
           <item>
            <widget class="QDoubleSpinBox" name="m_gate2Start">
             <property name="maximum">
-             <double>10000.000000000000000</double>
+             <double>2999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>50.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -622,8 +674,17 @@
           </item>
           <item>
            <widget class="QDoubleSpinBox" name="m_gate2Len">
+            <property name="minimum">
+             <double>1.000000000000000</double>
+            </property>
             <property name="maximum">
-             <double>10000.000000000000000</double>
+             <double>3000.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>100.000000000000000</double>
             </property>
            </widget>
           </item>

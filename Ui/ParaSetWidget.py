@@ -19,10 +19,10 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.ui.m_openSysBtn.clicked.connect(self.openSys)
         self.ui.m_chanChecked.stateChanged.connect(self.setChanChecked)
         self.ui.m_chanNo.currentIndexChanged.connect(self.syncChanState)
-        self.ui.m_gain.valueChanged.connect(self.setGain)
-        self.ui.m_offset.valueChanged.connect(self.setOffset)
+        self.ui.m_gain.editingFinished.connect(self.setGain)
+        self.ui.m_offset.editingFinished.connect(self.setOffset)
         self.ui.m_recvChanNo.currentIndexChanged.connect(self.setRecvChanNo)
-        self.ui.m_probePrf.valueChanged.connect(self.setProbePrf)
+        self.ui.m_probePrf.editingFinished.connect(self.setProbePrf)
             
     def startSys(self):
         #start sys
@@ -55,6 +55,9 @@ class ParaSetWidget(ParaSetWidgetUi):
     def setSocketTransObj(self,  socketTrans):
         self.m_clientSocketTransObj = socketTrans
     
+    def getSonicPD(self):
+        return self.ui.m_sonicPD.value()
+    
     def syncChanState(self):
         chan = self.ui.m_chanNo.currentIndex()
         data = (1 << chan)
@@ -85,7 +88,7 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.setOffset()
         self.setSampleLen()
         self.setRecvChanNo()
-        self.setGainRangeNo()
+        #self.setGainRangeNo()
         self.m_haveSendPara = True
     
     def writePara(self, handle, para = 0):
@@ -133,6 +136,7 @@ class ParaSetWidget(ParaSetWidgetUi):
         #sendData = ((100 - gain) / 200 + 1) * 2 ** 9
         sendData = (gain + 6.5) * 1024 / (50 * 1.3046)
         self.writePara(0x0A, sendData)
+        self.setGainRangeNo()
     
     def setSonicPD(self):
         sonicPD = self.ui.m_sonicPD.value()
