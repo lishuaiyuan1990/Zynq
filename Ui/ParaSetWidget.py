@@ -21,6 +21,8 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.ui.m_chanNo.currentIndexChanged.connect(self.syncChanState)
         self.ui.m_gain.valueChanged.connect(self.setGain)
         self.ui.m_offset.valueChanged.connect(self.setOffset)
+        self.ui.m_recvChanNo.currentIndexChanged.connect(self.setRecvChanNo)
+        self.ui.m_probePrf.valueChanged.connect(self.setProbePrf)
             
     def startSys(self):
         #start sys
@@ -118,7 +120,7 @@ class ParaSetWidget(ParaSetWidgetUi):
     
     def setEVoltage(self):
         eVoltage = self.getEVoltageValue()
-        sendData = int(eVoltage * 51 / 80 / (2 ** 6))
+        sendData = int(eVoltage * 51.0 / 80 / (2 ** 6))
         self.writePara(0x08, sendData)
     
     def setProbePrf(self):
@@ -128,7 +130,8 @@ class ParaSetWidget(ParaSetWidgetUi):
     
     def setGain(self):
         gain = self.ui.m_gain.value()
-        sendData = ((100 - gain) / 200 + 1) * 2 ** 9
+        #sendData = ((100 - gain) / 200 + 1) * 2 ** 9
+        sendData = (gain + 6.5) * 1024 / (50 * 1.3046)
         self.writePara(0x0A, sendData)
     
     def setSonicPD(self):
@@ -160,9 +163,9 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.writePara(0x0E,sampleLen)
     
     def setGainRangeNo(self):
-        data = 0
+        data = 1
         if self.ui.m_gain.value() > 39:
-            data = 1
+            data = 0
         self.writePara(0x0F, data)
         
     def setRecvChanNo(self):
