@@ -127,7 +127,7 @@ class MainWindow(MainWindowUi):
         self.m_drawThread.start()
         
     def recvScanData(self):
-        max_pkg_len = 450000 * 4
+        max_pkg_len = 450000
         data = self.m_clientSocketTransObj.recvData(max_pkg_len)
         self.m_parseThread = threading.Timer(0.1, self.parseFrameDataAndDraw, [data])
         self.m_parseThread.start()
