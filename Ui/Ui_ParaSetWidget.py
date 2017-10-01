@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\ParaSetWidget.ui'
 #
-# Created: Fri Sep 29 23:45:43 2017
+# Created: Sun Oct 01 21:10:07 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -95,6 +95,9 @@ class Ui_ParaSetWidget(object):
         self.label_10.setObjectName(_fromUtf8("label_10"))
         self.horizontalLayout_10.addWidget(self.label_10)
         self.m_sampleLen = QtGui.QDoubleSpinBox(self.layoutWidget)
+        self.m_sampleLen.setMinimum(100.0)
+        self.m_sampleLen.setMaximum(512.0)
+        self.m_sampleLen.setProperty("value", 250.0)
         self.m_sampleLen.setObjectName(_fromUtf8("m_sampleLen"))
         self.horizontalLayout_10.addWidget(self.m_sampleLen)
         self.gridLayout_2.addLayout(self.horizontalLayout_10, 1, 0, 1, 1)

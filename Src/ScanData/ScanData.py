@@ -9,28 +9,35 @@ class AScanData(object):
         self.m_dmaData = data
         self.m_parseFrameInterval = 10
         self.parseAscanData()
+        self.m_frameLen = 0
     
     def iterateFrameData(self, startIndex = 0, endIndex = -1, frameStep = 1, typeSize = 4, cbBreak = None, cbIterate = None):
         if endIndex == -1:
             endIndex = len(self.m_dmaData)
+        if self.m_frameLen <= 0:
+            return
         while(True):
-            if startIndex + FrameLen * 4 >= endIndex:
+            if startIndex + self.m_frameLen * 4 >= endIndex:
                 break
-            dataTuple = struct.unpack("%dI" % (FrameLen * 4 / typeSize),  self.m_dmaData[startIndex : startIndex + FrameLen * 4])
+            dataTuple = struct.unpack("%dI" % (self.m_frameLen * 4 / typeSize),  self.m_dmaData[startIndex : startIndex + self.m_frameLen * 4])
             if cbIterate != None: 
                 cbIterate(dataTuple)
             if cbBreak != None:
                 for index, value in enumerate(dataTuple):
                     if cbBreak(value):
                         return startIndex + typeSize * index
-            startIndex += FrameLen * 4 * frameStep
+            startIndex += self.m_frameLen * 4 * frameStep
         return -1
+    
+    def findSampleNum(self):
+        pass
     
     def isFrameHead(self, value):
         if (value >> 16) == FrameHead:
-            if self.m_frameHeadNo > 3:
-                return True
             self.m_frameHeadNo += 1
+            self.m_frameLen = value & 0x0000FFFF
+            if self.m_frameHeadNo >= 3:
+                return True
             return False
         else:
             return False
