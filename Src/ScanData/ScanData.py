@@ -8,8 +8,9 @@ class AScanData(object):
     def __init__(self, data):
         self.m_dmaData = data
         self.m_parseFrameInterval = 10
+        self.m_frameLen = 256
         self.parseAscanData()
-        self.m_frameLen = 0
+        
     
     def iterateFrameData(self, startIndex = 0, endIndex = -1, frameStep = 1, typeSize = 4, cbBreak = None, cbIterate = None):
         if endIndex == -1:
@@ -24,19 +25,27 @@ class AScanData(object):
                 cbIterate(dataTuple)
             if cbBreak != None:
                 for index, value in enumerate(dataTuple):
-                    if cbBreak(value):
-                        return startIndex + typeSize * index
+                    retIndex = startIndex + typeSize * index
+                    if cbBreak(value, retIndex):
+                        return retIndex
             startIndex += self.m_frameLen * 4 * frameStep
         return -1
     
     def findSampleNum(self):
         pass
     
-    def isFrameHead(self, value):
+    def isFrameHead(self, value, retIndex):
         if (value >> 16) == FrameHead:
             self.m_frameHeadNo += 1
             self.m_frameLen = value & 0x0000FFFF
-            if self.m_frameHeadNo >= 3:
+            self.m_frameIndexList[self.m_frameHeadNo - 1] = retIndex
+            if self.m_frameHeadNo >= 2:
+                frameLen = (self.m_frameIndexList[1] - self.m_frameIndexList[0]) / 4
+                if frameLen != self.m_frameLen:
+                    print "frameLen Error: 1"
+                if self.m_frameLen <= 0:
+                    print "frameLen Error: 2"
+                    self.m_frameLen = frameLen
                 return True
             return False
         else:
@@ -44,6 +53,7 @@ class AScanData(object):
         
     def getFirstFrameHead(self):
         self.m_frameHeadNo = 1
+        self.m_frameIndexList = [0, 0]
         firstFrameHeadIndex = self.iterateFrameData(cbBreak = self.isFrameHead)
         return firstFrameHeadIndex
     
