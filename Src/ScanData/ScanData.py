@@ -37,14 +37,14 @@ class AScanData(object):
     def isFrameHead(self, value, retIndex):
         if (value >> 16) == FrameHead:
             self.m_frameHeadNo += 1
-            self.m_frameLen = value & 0x0000FFFF
             self.m_frameIndexList[self.m_frameHeadNo - 1] = retIndex
             if self.m_frameHeadNo >= 2:
+                self.m_frameLen = value & 0x0000FFFF
                 frameLen = (self.m_frameIndexList[1] - self.m_frameIndexList[0]) / 4
                 if frameLen != self.m_frameLen:
-                    print "frameLen Error: 1"
+                    print "frameLen Error: 1 (frameLen in frameHead error)"
                 if self.m_frameLen <= 0:
-                    print "frameLen Error: 2"
+                    print "frameLn Error: 2 (frameLen in frameHead <= 0)"
                     self.m_frameLen = frameLen
                 return True
             return False
@@ -52,7 +52,7 @@ class AScanData(object):
             return False
         
     def getFirstFrameHead(self):
-        self.m_frameHeadNo = 1
+        self.m_frameHeadNo = 0
         self.m_frameIndexList = [0, 0]
         firstFrameHeadIndex = self.iterateFrameData(cbBreak = self.isFrameHead)
         return firstFrameHeadIndex
