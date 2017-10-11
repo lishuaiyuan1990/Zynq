@@ -28,9 +28,9 @@
       <item row="1" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_12">
         <item>
-         <widget class="QPushButton" name="m_startSysBtn">
+         <widget class="QPushButton" name="m_openSysBtn">
           <property name="text">
-           <string>配置DMA</string>
+           <string>启动系统</string>
           </property>
          </widget>
         </item>
@@ -130,13 +130,8 @@
               <item>
                <widget class="QComboBox" name="m_eVoltage">
                 <property name="currentIndex">
-                 <number>2</number>
+                 <number>1</number>
                 </property>
-                <item>
-                 <property name="text">
-                  <string>500</string>
-                 </property>
-                </item>
                 <item>
                  <property name="text">
                   <string>400</string>
@@ -491,22 +486,7 @@
        </layout>
       </item>
       <item row="2" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_15">
-        <item>
-         <widget class="QPushButton" name="m_sendParaBtn">
-          <property name="text">
-           <string>发送参数</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="m_openSysBtn">
-          <property name="text">
-           <string>启动系统</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <layout class="QHBoxLayout" name="horizontalLayout_15"/>
       </item>
      </layout>
     </item>

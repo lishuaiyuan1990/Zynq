@@ -13,8 +13,6 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.m_haveSendPara = False
     
     def configSignalAndSlot(self):
-        self.ui.m_sendParaBtn.clicked.connect(self.sendParaSlot)
-        self.ui.m_startSysBtn.clicked.connect(self.startSys)
         self.ui.m_stopSysBtn.clicked.connect(self.stopSys)
         self.ui.m_openSysBtn.clicked.connect(self.openSys)
         self.ui.m_chanChecked.stateChanged.connect(self.setChanChecked)
@@ -123,13 +121,13 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.writePara(0x07, self.m_chanEnabled)
     
     def getEVoltageValue(self):
-        eVoltageList = [500, 400, 300, 200, 100, 50]
+        eVoltageList = [400, 300, 200, 100, 50]
         eVoltageIndex = self.ui.m_eVoltage.currentIndex()
         return eVoltageList[eVoltageIndex]
     
     def setEVoltage(self):
         eVoltage = self.getEVoltageValue()
-        sendData = int(eVoltage * 51.0 / 80 / (2 ** 6))
+        sendData = int((eVoltage * 256.0 / 400.0 - 1) * (2 ** 6))
         self.writePara(0x08, sendData)
     
     def setProbePrf(self):

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\ParaSetWidget.ui'
 #
-# Created: Sun Oct 01 21:10:07 2017
+# Created: Wed Oct 11 23:18:18 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -37,9 +37,9 @@ class Ui_ParaSetWidget(object):
         self.gridLayout_5.setObjectName(_fromUtf8("gridLayout_5"))
         self.horizontalLayout_12 = QtGui.QHBoxLayout()
         self.horizontalLayout_12.setObjectName(_fromUtf8("horizontalLayout_12"))
-        self.m_startSysBtn = QtGui.QPushButton(self.layoutWidget)
-        self.m_startSysBtn.setObjectName(_fromUtf8("m_startSysBtn"))
-        self.horizontalLayout_12.addWidget(self.m_startSysBtn)
+        self.m_openSysBtn = QtGui.QPushButton(self.layoutWidget)
+        self.m_openSysBtn.setObjectName(_fromUtf8("m_openSysBtn"))
+        self.horizontalLayout_12.addWidget(self.m_openSysBtn)
         self.m_stopSysBtn = QtGui.QPushButton(self.layoutWidget)
         self.m_stopSysBtn.setObjectName(_fromUtf8("m_stopSysBtn"))
         self.horizontalLayout_12.addWidget(self.m_stopSysBtn)
@@ -81,7 +81,6 @@ class Ui_ParaSetWidget(object):
         self.horizontalLayout_7.addWidget(self.label_4)
         self.m_eVoltage = QtGui.QComboBox(self.layoutWidget)
         self.m_eVoltage.setObjectName(_fromUtf8("m_eVoltage"))
-        self.m_eVoltage.addItem(_fromUtf8(""))
         self.m_eVoltage.addItem(_fromUtf8(""))
         self.m_eVoltage.addItem(_fromUtf8(""))
         self.m_eVoltage.addItem(_fromUtf8(""))
@@ -224,12 +223,6 @@ class Ui_ParaSetWidget(object):
         self.gridLayout_5.addLayout(self.gridLayout_4, 0, 0, 1, 1)
         self.horizontalLayout_15 = QtGui.QHBoxLayout()
         self.horizontalLayout_15.setObjectName(_fromUtf8("horizontalLayout_15"))
-        self.m_sendParaBtn = QtGui.QPushButton(self.layoutWidget)
-        self.m_sendParaBtn.setObjectName(_fromUtf8("m_sendParaBtn"))
-        self.horizontalLayout_15.addWidget(self.m_sendParaBtn)
-        self.m_openSysBtn = QtGui.QPushButton(self.layoutWidget)
-        self.m_openSysBtn.setObjectName(_fromUtf8("m_openSysBtn"))
-        self.horizontalLayout_15.addWidget(self.m_openSysBtn)
         self.gridLayout_5.addLayout(self.horizontalLayout_15, 2, 0, 1, 1)
         self.gridLayout_8.addLayout(self.gridLayout_5, 0, 0, 1, 1)
         self.gridLayout_6 = QtGui.QGridLayout()
@@ -334,13 +327,13 @@ class Ui_ParaSetWidget(object):
         self.gridLayout_8.addLayout(self.gridLayout_7, 2, 0, 1, 1)
 
         self.retranslateUi(ParaSetWidget)
-        self.m_eVoltage.setCurrentIndex(2)
+        self.m_eVoltage.setCurrentIndex(1)
         self.m_prf.setCurrentIndex(7)
         QtCore.QMetaObject.connectSlotsByName(ParaSetWidget)
 
     def retranslateUi(self, ParaSetWidget):
         ParaSetWidget.setWindowTitle(_translate("ParaSetWidget", "ParaSet", None))
-        self.m_startSysBtn.setText(_translate("ParaSetWidget", "配置DMA", None))
+        self.m_openSysBtn.setText(_translate("ParaSetWidget", "启动系统", None))
         self.m_stopSysBtn.setText(_translate("ParaSetWidget", "停止", None))
         self.label.setText(_translate("ParaSetWidget", "通道选择", None))
         self.m_chanNo.setItemText(0, _translate("ParaSetWidget", "通道1", None))
@@ -353,12 +346,11 @@ class Ui_ParaSetWidget(object):
         self.m_chanNo.setItemText(7, _translate("ParaSetWidget", "通道8", None))
         self.m_chanChecked.setText(_translate("ParaSetWidget", "通道使能", None))
         self.label_4.setText(_translate("ParaSetWidget", "激励电压(V)", None))
-        self.m_eVoltage.setItemText(0, _translate("ParaSetWidget", "500", None))
-        self.m_eVoltage.setItemText(1, _translate("ParaSetWidget", "400", None))
-        self.m_eVoltage.setItemText(2, _translate("ParaSetWidget", "300", None))
-        self.m_eVoltage.setItemText(3, _translate("ParaSetWidget", "200", None))
-        self.m_eVoltage.setItemText(4, _translate("ParaSetWidget", "100", None))
-        self.m_eVoltage.setItemText(5, _translate("ParaSetWidget", "50", None))
+        self.m_eVoltage.setItemText(0, _translate("ParaSetWidget", "400", None))
+        self.m_eVoltage.setItemText(1, _translate("ParaSetWidget", "300", None))
+        self.m_eVoltage.setItemText(2, _translate("ParaSetWidget", "200", None))
+        self.m_eVoltage.setItemText(3, _translate("ParaSetWidget", "100", None))
+        self.m_eVoltage.setItemText(4, _translate("ParaSetWidget", "50", None))
         self.label_10.setText(_translate("ParaSetWidget", "采样个数", None))
         self.label_6.setText(_translate("ParaSetWidget", "增益(dB)", None))
         self.label_11.setText(_translate("ParaSetWidget", "接收通道", None))
@@ -390,8 +382,6 @@ class Ui_ParaSetWidget(object):
         self.m_prf.setItemText(9, _translate("ParaSetWidget", "8000", None))
         self.m_prf.setItemText(10, _translate("ParaSetWidget", "10000", None))
         self.m_prf.setItemText(11, _translate("ParaSetWidget", "16000", None))
-        self.m_sendParaBtn.setText(_translate("ParaSetWidget", "发送参数", None))
-        self.m_openSysBtn.setText(_translate("ParaSetWidget", "启动系统", None))
         self.m_gate1Checked.setText(_translate("ParaSetWidget", "闸门1", None))
         self.label_14.setText(_translate("ParaSetWidget", "阈值", None))
         self.label_12.setText(_translate("ParaSetWidget", "起始", None))

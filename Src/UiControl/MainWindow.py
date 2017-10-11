@@ -32,8 +32,6 @@ class MainWindow(MainWindowUi):
         self.setSonicPara)
         self.connect(self.ui.m_paraSetWidget.ui.m_stopSysBtn,  QtCore.SIGNAL("clicked()"),\
         self.stopRecvDataThread)
-        self.connect(self.ui.m_paraSetWidget.ui.m_sendParaBtn,  QtCore.SIGNAL("clicked()"),\
-        self.setSonicPara)
         #self.connect(self.ui.m_paraSetWidget.m_gateProcesser, QtCore.SIGNAL("gateUpdated()"), \
         #self.drawGate)
     #stop sys
