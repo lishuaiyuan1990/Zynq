@@ -2,6 +2,7 @@ from PyQt4 import QtCore
 from PyQt4 import QtGui
 import numpy as np
 import threading
+import copy
 import os
 import datetime
 from Ui import MainWindowUi
@@ -47,15 +48,7 @@ class MainWindow(MainWindowUi):
         self.m_sonicV = self.ui.m_paraSetWidget.getSonicV() / 1000
         self.m_gate1 = self.ui.m_paraSetWidget.getGate1()
         self.m_gate2 = self.ui.m_paraSetWidget.getGate2()
-    
-    def getAScanRange(self):
-        self.setSonicPara()
-        range = {}
-        range['start'] = self.m_offset
-        sampleTime = 1.0 / self.m_sampleFreq
-        range['end'] = self.m_offset + sampleTime * self.m_AScanLen * self.m_sonicV
-        return range
-    
+        
     def getXAxisRange(self):
         self.setSonicPara()
         range = {}
@@ -86,7 +79,7 @@ class MainWindow(MainWindowUi):
         if len(aScanDataList) <= 0:
             return
         drawClock = 0
-        drawInterval = self.m_recvInterval / len(aScanDataList)
+        drawInterval = 1.0 * self.m_recvInterval / len(aScanDataList)
         self.m_drawThread = threading.Timer(drawInterval, self.drawAScanData, [aScanDataList, drawClock, drawInterval, True])
         self.m_drawThread.start()
         return
@@ -110,8 +103,8 @@ class MainWindow(MainWindowUi):
             return
         data = dataList[drawClock]
         scanData = {}
-        scanData['y'] = data
-        scanRange = self.getAScanRange()
+        scanData['y'] = copy.deepcopy(data)
+        scanRange = self.getXAxisRange()
         scanData['x'] = np.linspace(scanRange['start'], scanRange['end'], len(data))
         self.configAxis()
         self.drawGate()
@@ -127,8 +120,8 @@ class MainWindow(MainWindowUi):
     def recvScanData(self):
         max_pkg_len = 450000
         data = self.m_clientSocketTransObj.recvData(max_pkg_len)
-        self.m_parseThread = threading.Timer(0.1, self.parseFrameDataAndDraw, [data])
-        self.m_parseThread.start()
+        self.parseFrameDataAndDraw(data)
+
         #one page read done
         self.m_clientSocketTransObj.writePara(0xDDDD)
         self.m_clockTimes += 1
