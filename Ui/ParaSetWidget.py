@@ -19,6 +19,8 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.ui.m_openSysBtn.clicked.connect(self.openSys)
         self.ui.m_chanChecked.stateChanged.connect(self.setChanChecked)
         self.ui.m_chanNo.currentIndexChanged.connect(self.syncChanState)
+        self.ui.m_eVoltage.currentIndexChanged.connect(self.setEVoltage)
+        self.ui.m_prf.currentIndexChanged.connect(self.setPRF)
         self.ui.m_gain.editingFinished.connect(self.setGain)
         self.ui.m_offset.editingFinished.connect(self.setOffset)
         self.ui.m_recvChanNo.currentIndexChanged.connect(self.setRecvChanNo)
