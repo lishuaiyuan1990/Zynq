@@ -6,8 +6,8 @@ class SocketTrans(object):
         self.m_clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.m_clientSocket.connect((serverIp, serverPort))
     def writePara(self, para):
-        #pass
         self.m_clientSocket.send(struct.pack("I", para))
+        pass
     
     #waiting for complete...
     def readPara(self):

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project ZynqClient -->
-<!-- Saved: 2017-09-27, 11:19:44 -->
+<!-- Saved: 2017-10-12, 10:45:58 -->
 <!-- Copyright (C) 2017 ,  -->
 <Project version="5.1">
   <Language></Language>
@@ -20,6 +20,8 @@
     <Source>Src/TransLib/__init__.py</Source>
     <Source>Src/UiControl/MainWindow.py</Source>
     <Source>Src/UiControl/__init__.py</Source>
+    <Source>Src/Utils/ProgressUtils.py</Source>
+    <Source>Src/Utils/__init__.py</Source>
     <Source>Src/__init__.py</Source>
     <Source>Ui/MainWindowUi.py</Source>
     <Source>Ui/ParaSetWidget.py</Source>

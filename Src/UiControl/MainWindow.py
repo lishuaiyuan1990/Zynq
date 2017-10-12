@@ -18,6 +18,9 @@ FrameHead = 0xCCDD
 class MainWindow(MainWindowUi):
     def __init__(self, parent = None):
         super(MainWindow, self).__init__(parent)
+        self.setWindowFlags(self.windowFlags()& ~QtCore.Qt.WindowMaximizeButtonHint)
+        self.setFixedSize(self.width(), self.height())
+        
         self.m_clientSocketTransObj = SocketTrans(IP, PORT)
         self.ui.m_paraSetWidget.setSocketTransObj(self.m_clientSocketTransObj)
         self.m_startSys = False
@@ -26,6 +29,7 @@ class MainWindow(MainWindowUi):
         self.configSignalAndSlot()
         self.configAxis()
         
+        
     def configSignalAndSlot(self):
         self.connect(self.ui.m_paraSetWidget.ui.m_openSysBtn,  QtCore.SIGNAL("clicked()"),\
         self.createThreadToRecvData)
@@ -33,6 +37,10 @@ class MainWindow(MainWindowUi):
         self.setSonicPara)
         self.connect(self.ui.m_paraSetWidget.ui.m_stopSysBtn,  QtCore.SIGNAL("clicked()"),\
         self.stopRecvDataThread)
+        self.connect(self.ui.m_paraSetWidget.ui.m_sonicPD,  QtCore.SIGNAL('editingFinished()'), \
+        self.updateAxis)
+        self.connect(self.ui.m_paraSetWidget.ui.m_offset,  QtCore.SIGNAL('editingFinished()'), \
+        self.updateAxis)
         #self.connect(self.ui.m_paraSetWidget.m_gateProcesser, QtCore.SIGNAL("gateUpdated()"), \
         #self.drawGate)
     #stop sys
@@ -48,6 +56,9 @@ class MainWindow(MainWindowUi):
         self.m_sonicV = self.ui.m_paraSetWidget.getSonicV() / 1000
         self.m_gate1 = self.ui.m_paraSetWidget.getGate1()
         self.m_gate2 = self.ui.m_paraSetWidget.getGate2()
+    
+    def updateAxis(self):
+        self.ui.m_aScanWidget.updateAxis()
         
     def getXAxisRange(self):
         self.setSonicPara()
@@ -67,7 +78,7 @@ class MainWindow(MainWindowUi):
     #main thread
     def createThreadToRecvData(self):
         self.m_startSys = True
-        self.m_recvInterval = 1
+        self.m_recvInterval = 0.6
         self.m_timerThread = threading.Timer(self.m_recvInterval, self.recvScanData)
         self.m_timerThread.start()
         self.m_drawDone = True
@@ -118,7 +129,7 @@ class MainWindow(MainWindowUi):
         self.m_drawThread.start()
         
     def recvScanData(self):
-        max_pkg_len = 450000
+        max_pkg_len = 50000
         data = self.m_clientSocketTransObj.recvData(max_pkg_len)
         self.parseFrameDataAndDraw(data)
 

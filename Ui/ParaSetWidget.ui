@@ -6,42 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>261</width>
-    <height>575</height>
+    <width>237</width>
+    <height>564</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ParaSet</string>
   </property>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>11</y>
-     <width>241</width>
-     <height>551</height>
+     <x>11</x>
+     <y>2</y>
+     <width>211</width>
+     <height>531</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_8">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="1" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_12">
-        <item>
-         <widget class="QPushButton" name="m_openSysBtn">
-          <property name="text">
-           <string>启动系统</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="m_stopSysBtn">
-          <property name="text">
-           <string>停止</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <layout class="QHBoxLayout" name="horizontalLayout_12"/>
       </item>
       <item row="0" column="0">
        <layout class="QGridLayout" name="gridLayout_4">
@@ -589,44 +574,6 @@
     </item>
     <item row="2" column="0">
      <layout class="QGridLayout" name="gridLayout_7">
-      <item row="0" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_21">
-        <item>
-         <widget class="QCheckBox" name="m_gate2Checked">
-          <property name="text">
-           <string>闸门2</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_22">
-          <item>
-           <widget class="QLabel" name="label_15">
-            <property name="text">
-             <string>阈值</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QDoubleSpinBox" name="m_gate2Threshold">
-            <property name="minimum">
-             <double>1.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>99.000000000000000</double>
-            </property>
-            <property name="value">
-             <double>50.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
       <item row="1" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_23">
         <item>
@@ -681,6 +628,62 @@
          </layout>
         </item>
        </layout>
+      </item>
+      <item row="0" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_21">
+        <item>
+         <widget class="QCheckBox" name="m_gate2Checked">
+          <property name="text">
+           <string>闸门2</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_22">
+          <item>
+           <widget class="QLabel" name="label_15">
+            <property name="text">
+             <string>阈值</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="m_gate2Threshold">
+            <property name="minimum">
+             <double>1.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>50.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="3" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_26">
+      <item>
+       <widget class="QPushButton" name="m_openSysBtn">
+        <property name="text">
+         <string>启动系统</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="m_stopSysBtn">
+        <property name="text">
+         <string>停止</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

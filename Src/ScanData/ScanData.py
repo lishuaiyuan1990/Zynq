@@ -7,7 +7,7 @@ FrameHead = 0xCCDD
 class AScanData(object):
     def __init__(self, data):
         self.m_dmaData = data
-        self.m_parseFrameInterval = 10
+        self.m_parseFrameInterval = 1
         self.m_frameLen = 256
         self.parseAscanData()
         
@@ -81,12 +81,22 @@ class AScanData(object):
         frameHeadIndex = self.getFirstFrameHead()
         if frameHeadIndex == -1:
             return self.m_parsedFrameDataList
-        self.iterateFrameData(startIndex = frameHeadIndex, frameStep = 10, cbIterate = self.genAScanList)
+        self.iterateFrameData(startIndex = frameHeadIndex, frameStep = 1, cbIterate = self.genAScanList)
         return self.m_parsedFrameDataList
+    
+    def compressAScanList(self):
+        AScanListLen = 10
+        rawAScanListLen = len(self.m_parsedFrameDataList)
+        step = max(int(rawAScanListLen / AScanListLen), 1)
+        retList = []
+        for i in range(0, rawAScanListLen, step):
+            retList.append(self.m_parsedFrameDataList[i])
+        return retList
+        
     
     def limitDataRange(self):
         maxData = 2 ** 10 - 1.0
-        return np.array(self.m_parsedFrameDataList) / maxData * 100
+        return np.array(self.compressAScanList()) / maxData * 100
     
     def getAScanList(self):
         return self.limitDataRange()

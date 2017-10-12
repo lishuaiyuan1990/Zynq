@@ -52,6 +52,7 @@ class AScanMplCanvas(MyMplCanvas):
         MyMplCanvas.__init__(self, parent, title)
         self.axes.grid(True, linestyle = "-.")
         self.m_aScanPlotter = None
+        self.m_updateAxis = True
         self.m_gatePlotter = {'#FF0000': None, '#0000FF': None, '#00FF00': None}
     
     def configXAxis(self, start, end, stepNum,  label = 'x'):
@@ -62,7 +63,7 @@ class AScanMplCanvas(MyMplCanvas):
     
     def setXAxis(self):
         self.axes.set_xticks(np.linspace(self.m_xStart, self.m_xEnd, self.m_xStepNum))
-        self.axes.set_xlim(self.m_xStart, self.m_xEnd * 1.02)
+        self.axes.set_xlim(self.m_xStart, self.m_xEnd * 1.001)
         self.axes.set_xlabel(self.m_xLabel)
     
     def configYAxis(self, start, end, stepNum,  label = 'y'):
@@ -73,8 +74,11 @@ class AScanMplCanvas(MyMplCanvas):
         
     def setYAxis(self):
         self.axes.set_yticks(np.linspace(self.m_yStart, self.m_yEnd, self.m_yStepNum))
-        self.axes.set_ylim(self.m_yStart, self.m_yEnd * 1.02)
+        self.axes.set_ylim(self.m_yStart, self.m_yEnd * 1.005)
         self.axes.set_ylabel(self.m_yLabel)
+    
+    def updateAxis(self):
+        self.m_updateAxis = True
     
     def drawData(self, scanData):
         if self.m_aScanPlotter == None:
@@ -82,8 +86,10 @@ class AScanMplCanvas(MyMplCanvas):
         else:
             self.m_aScanPlotter.set_data(scanData['x'], scanData['y'])
         self.axes.grid(True, linestyle = "-.")
-        self.setXAxis()
-        self.setYAxis()
+        if self.m_updateAxis:
+            self.setXAxis()
+            self.setYAxis()
+            self.m_updateAxis = False
         self.draw()
     def drawGate(self, gate):
         if not gate.m_enabled:
@@ -123,6 +129,9 @@ class AScanWidget(QWidget):
     
     def drawGate(self, gate):
         self.m_aScanCanvas.drawGate(gate)
+    
+    def updateAxis(self):
+        self.m_aScanCanvas.updateAxis()
         
 
 class ApplicationWindow(QMainWindow):
