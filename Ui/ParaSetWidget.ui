@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>ParaSet</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>11</x>
@@ -680,6 +680,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="m_stopSysBtn">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>停止</string>
         </property>

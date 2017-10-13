@@ -38,12 +38,16 @@ class ParaSetWidget(ParaSetWidgetUi):
     def stopSys(self):
         #stop sys
         #self.writePara(0x03, 0)
+        self.ui.m_openSysBtn.setEnabled(True)
+        self.ui.m_stopSysBtn.setEnabled(False)
         self.closeSys()
     
     def closeSys(self):
         self.writePara(0x04, 0)
 
     def openSys(self):
+        self.ui.m_openSysBtn.setEnabled(False)
+        self.ui.m_stopSysBtn.setEnabled(True)
         if not self.m_haveSendPara:
             self.startSys()
             self.sendParaSlot()
