@@ -64,7 +64,7 @@ class AScanData(object):
         for index, value in enumerate(frameData):
             caveData = self.parseFrameData(value)
             aScanList.append(caveData[0])
-            aScanList.append(caveData[1])
+            #aScanList.append(caveData[1])
         self.m_parsedFrameDataList.append(aScanList)
         return aScanList
     
@@ -72,8 +72,9 @@ class AScanData(object):
     def parseFrameData(self, rawData):
         dataL10 = 0x3FF
         dataL = rawData & dataL10
-        dataH = rawData >> 10
-        return [dataL,  dataH]
+        #dataH = rawData >> 10
+        #return [dataL,  dataH]
+        return [dataL]
         
         
     def parseAscanData(self):

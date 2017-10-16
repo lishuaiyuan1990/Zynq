@@ -33,7 +33,7 @@ class ParaSetWidget(ParaSetWidgetUi):
         #create thread to read DMA
         self.m_clientSocketTransObj.writePara(97)
         #config DMA
-        self.m_clientSocketTransObj.writePara(0x03000000)
+        #self.m_clientSocketTransObj.writePara(0x03000000)
     
     def stopSys(self):
         #stop sys
@@ -142,7 +142,11 @@ class ParaSetWidget(ParaSetWidgetUi):
     def setGain(self):
         gain = self.ui.m_gain.value()
         #sendData = ((100 - gain) / 200 + 1) * 2 ** 9
-        sendData = (gain + 6.5) * 1024 / (50 * 1.3046)
+        #sendData = (gain + 6.5) * 1024 / (50 * 1.3046)
+        if gain <= 39.7:
+            sendData = (((gain -3.5 + 12.4 - 9) / 2.0) + 6.5) * 1024.0 / (50 * 1.304) 
+        else:
+            sendData = (((gain -3.5 - 23.9 - 9) / 2.0) + 6.5) * 1024.0 / (50 * 1.304) 
         self.writePara(0x0A, sendData)
         self.setGainRangeNo()
     
@@ -179,17 +183,22 @@ class ParaSetWidget(ParaSetWidgetUi):
     
     def setSampleLen(self):
         sampleLen = self.ui.m_sampleLen.value()
-        sendData = sampleLen / 2
+        sendData = sampleLen# / 2
         self.writePara(0x0E, sendData)
     
     def setGainRangeNo(self):
         data = 1
-        if self.ui.m_gain.value() > 39:
+        if self.ui.m_gain.value() > 39.7:
             data = 0
         self.writePara(0x0F, data)
+    
+    def getRecvSendData(self):
+        sendRecvChanList = [0, 1, 2, 3, 4, 7, 5, 6]
+        recvChanNo = self.ui.m_recvChanNo.currentIndex()
+        return sendRecvChanList[recvChanNo]
         
     def setRecvChanNo(self):
-        recvChanNo = self.ui.m_recvChanNo.currentIndex()
+        recvChanNo = self.getRecvSendData()
         self.writePara(0x10, recvChanNo)
     
     def getGate1(self):

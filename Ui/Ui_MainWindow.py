@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\MainWindow.ui'
 #
-# Created: Fri Oct 13 21:15:43 2017
+# Created: Mon Oct 16 23:25:42 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
