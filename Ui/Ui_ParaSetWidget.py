@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\ParaSetWidget.ui'
 #
-# Created: Mon Oct 16 23:25:41 2017
+# Created: Tue Oct 17 09:51:45 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -121,6 +121,14 @@ class Ui_ParaSetWidget(object):
         self.m_recvChanNo.addItem(_fromUtf8(""))
         self.m_recvChanNo.addItem(_fromUtf8(""))
         self.m_recvChanNo.addItem(_fromUtf8(""))
+        self.m_recvChanNo.addItem(_fromUtf8(""))
+        self.m_recvChanNo.addItem(_fromUtf8(""))
+        self.m_recvChanNo.addItem(_fromUtf8(""))
+        self.m_recvChanNo.addItem(_fromUtf8(""))
+        self.m_recvChanNo.addItem(_fromUtf8(""))
+        self.m_recvChanNo.addItem(_fromUtf8(""))
+        self.m_recvChanNo.addItem(_fromUtf8(""))
+        self.m_recvChanNo.addItem(_fromUtf8(""))
         self.horizontalLayout_14.addWidget(self.m_recvChanNo)
         self.gridLayout_2.addLayout(self.horizontalLayout_14, 3, 0, 1, 1)
         self.horizontalLayout_9 = QtGui.QHBoxLayout()
@@ -198,6 +206,8 @@ class Ui_ParaSetWidget(object):
         self.horizontalLayout_3.addWidget(self.label_3)
         self.m_prf = QtGui.QComboBox(self.layoutWidget)
         self.m_prf.setObjectName(_fromUtf8("m_prf"))
+        self.m_prf.addItem(_fromUtf8(""))
+        self.m_prf.addItem(_fromUtf8(""))
         self.m_prf.addItem(_fromUtf8(""))
         self.m_prf.addItem(_fromUtf8(""))
         self.m_prf.addItem(_fromUtf8(""))
@@ -332,7 +342,7 @@ class Ui_ParaSetWidget(object):
 
         self.retranslateUi(ParaSetWidget)
         self.m_eVoltage.setCurrentIndex(1)
-        self.m_prf.setCurrentIndex(7)
+        self.m_prf.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(ParaSetWidget)
 
     def retranslateUi(self, ParaSetWidget):
@@ -364,6 +374,14 @@ class Ui_ParaSetWidget(object):
         self.m_recvChanNo.setItemText(5, _translate("ParaSetWidget", "通道6", None))
         self.m_recvChanNo.setItemText(6, _translate("ParaSetWidget", "通道7", None))
         self.m_recvChanNo.setItemText(7, _translate("ParaSetWidget", "通道8", None))
+        self.m_recvChanNo.setItemText(8, _translate("ParaSetWidget", "通道9", None))
+        self.m_recvChanNo.setItemText(9, _translate("ParaSetWidget", "通道10", None))
+        self.m_recvChanNo.setItemText(10, _translate("ParaSetWidget", "通道11", None))
+        self.m_recvChanNo.setItemText(11, _translate("ParaSetWidget", "通道12", None))
+        self.m_recvChanNo.setItemText(12, _translate("ParaSetWidget", "通道13", None))
+        self.m_recvChanNo.setItemText(13, _translate("ParaSetWidget", "通道14", None))
+        self.m_recvChanNo.setItemText(14, _translate("ParaSetWidget", "通道15", None))
+        self.m_recvChanNo.setItemText(15, _translate("ParaSetWidget", "通道16", None))
         self.label_8.setText(_translate("ParaSetWidget", "声速(m/s)", None))
         self.label_7.setText(_translate("ParaSetWidget", "声程(mm)", None))
         self.label_9.setText(_translate("ParaSetWidget", "起始偏移(mm)", None))
@@ -384,6 +402,8 @@ class Ui_ParaSetWidget(object):
         self.m_prf.setItemText(9, _translate("ParaSetWidget", "8000", None))
         self.m_prf.setItemText(10, _translate("ParaSetWidget", "10000", None))
         self.m_prf.setItemText(11, _translate("ParaSetWidget", "16000", None))
+        self.m_prf.setItemText(12, _translate("ParaSetWidget", "32000", None))
+        self.m_prf.setItemText(13, _translate("ParaSetWidget", "64000", None))
         self.m_gate1Checked.setText(_translate("ParaSetWidget", "闸门1", None))
         self.label_14.setText(_translate("ParaSetWidget", "阈值", None))
         self.label_12.setText(_translate("ParaSetWidget", "起始", None))

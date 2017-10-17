@@ -7,9 +7,11 @@ class ParaSetWidget(ParaSetWidgetUi):
         super(ParaSetWidget, self).__init__(parent)
         self.configSignalAndSlot()
         self.m_gateProcesser = GateProcess(self.ui)
-        #8 chan
-        self.m_chanEnabled = 0xFF
+        #16 chan
+        self.m_chanEnabled = 0xFFFF
         self.m_offset = 20
+        self.m_chanNum = 16
+        
         self.m_haveSendPara = False
     
     def configSignalAndSlot(self):
@@ -111,13 +113,13 @@ class ParaSetWidget(ParaSetWidgetUi):
     
     def getPRFValue(self):
         prfList = [80, 160, 240, 400, 500, 1000, 2000, \
-        4000, 5000, 8000, 10000, 16000]
+        4000, 5000, 8000, 10000, 16000, 32000, 64000]
         prfIndex = self.ui.m_prf.currentIndex()
         return prfList[prfIndex]
 
     def setPRF(self):
         prf = self.getPRFValue()
-        prf /= 8
+        prf /= self.m_chanNum
         data = int(10 ** 9 / prf / 200)
         self.writePara(0x06, data)
         
@@ -137,6 +139,7 @@ class ParaSetWidget(ParaSetWidgetUi):
     def setProbePrf(self):
         probePrf = self.ui.m_probePrf.value()
         sendData = int(1000 / probePrf / 5)
+        sendData = 10
         self.writePara(0x09, sendData)
     
     def setGain(self):
@@ -193,7 +196,7 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.writePara(0x0F, data)
     
     def getRecvSendData(self):
-        sendRecvChanList = [0, 1, 2, 3, 4, 6, 7, 5]
+        sendRecvChanList = [9, 1, 3, 5, 7, 11, 13, 15, 8, 0, 2, 4, 6, 10, 12, 14]
         recvChanNo = self.ui.m_recvChanNo.currentIndex()
         return sendRecvChanList[recvChanNo]
         

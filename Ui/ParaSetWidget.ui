@@ -245,6 +245,46 @@
                   <string>通道8</string>
                  </property>
                 </item>
+                <item>
+                 <property name="text">
+                  <string>通道9</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>通道10</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>通道11</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>通道12</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>通道13</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>通道14</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>通道15</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>通道16</string>
+                 </property>
+                </item>
                </widget>
               </item>
              </layout>
@@ -398,7 +438,7 @@
               <item>
                <widget class="QComboBox" name="m_prf">
                 <property name="currentIndex">
-                 <number>7</number>
+                 <number>0</number>
                 </property>
                 <item>
                  <property name="text">
@@ -458,6 +498,16 @@
                 <item>
                  <property name="text">
                   <string>16000</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>32000</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>64000</string>
                  </property>
                 </item>
                </widget>
