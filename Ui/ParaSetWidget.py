@@ -144,9 +144,9 @@ class ParaSetWidget(ParaSetWidgetUi):
         #sendData = ((100 - gain) / 200 + 1) * 2 ** 9
         #sendData = (gain + 6.5) * 1024 / (50 * 1.3046)
         if gain <= 39.7:
-            sendData = (((gain -3.5 + 12.4 - 9) / 2.0) + 6.5) * 1024.0 / (50 * 1.304) 
+            sendData = (((gain + 20 + 12.4) / 2.0) + 6.5) * 1024.0 / (50 * 1.304) 
         else:
-            sendData = (((gain -3.5 - 23.9 - 9) / 2.0) + 6.5) * 1024.0 / (50 * 1.304) 
+            sendData = (((gain + 20 - 23.9 + 3.5) / 2.0) + 6.5) * 1024.0 / (50 * 1.304) 
         self.writePara(0x0A, sendData)
         self.setGainRangeNo()
     
@@ -193,7 +193,7 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.writePara(0x0F, data)
     
     def getRecvSendData(self):
-        sendRecvChanList = [0, 1, 2, 3, 4, 7, 5, 6]
+        sendRecvChanList = [0, 1, 2, 3, 4, 6, 7, 5]
         recvChanNo = self.ui.m_recvChanNo.currentIndex()
         return sendRecvChanList[recvChanNo]
         
