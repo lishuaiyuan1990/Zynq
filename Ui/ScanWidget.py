@@ -85,8 +85,8 @@ class AScanMplCanvas(MyMplCanvas):
             self.m_aScanPlotter, = self.axes.plot(scanData['x'], scanData['y'])
         else:
             self.m_aScanPlotter.set_data(scanData['x'], scanData['y'])
-        self.axes.grid(True, linestyle = "-.")
         if self.m_updateAxis:
+            self.axes.grid(True, linestyle = "-.")
             self.setXAxis()
             self.setYAxis()
             self.m_updateAxis = False
