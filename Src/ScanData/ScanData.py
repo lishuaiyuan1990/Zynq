@@ -86,7 +86,9 @@ class AScanData(object):
         return self.m_parsedFrameDataList
     
     def compressAScanList(self):
-        AScanListLen = 10
+        recvInterval = 0.1
+        fps = 15
+        AScanListLen = int(round(recvInterval * fps))
         rawAScanListLen = len(self.m_parsedFrameDataList)
         step = max(int(rawAScanListLen / AScanListLen), 1)
         retList = []

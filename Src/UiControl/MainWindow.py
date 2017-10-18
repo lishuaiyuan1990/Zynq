@@ -24,11 +24,18 @@ class MainWindow(MainWindowUi):
         self.m_clientSocketTransObj = SocketTrans(IP, PORT)
         self.ui.m_paraSetWidget.setSocketTransObj(self.m_clientSocketTransObj)
         self.m_startSys = False
-        self.m_clockTimes = 1
+        self.m_clockTimes = 0
         self.setSonicPara()
         self.configSignalAndSlot()
+        self.updateAxis()
         self.configAxis()
-        
+        self.mainUpdate()
+    
+    def mainUpdate(self):
+        #sendNum = self.m_clientSocketTransObj.writePara(0xFFFF)
+        #print "sendNum: ",  sendNum 
+        timerThread = threading.Timer(1.0, self.mainUpdate)
+        timerThread.start()
         
     def configSignalAndSlot(self):
         self.connect(self.ui.m_paraSetWidget.ui.m_openSysBtn,  QtCore.SIGNAL("clicked()"),\
@@ -50,14 +57,14 @@ class MainWindow(MainWindowUi):
     def setSonicPara(self):
         self.m_AScanLen = (FrameLen - 1) * 2
         self.m_sampleFreq = 100
-        self.m_offset = self.ui.m_paraSetWidget.getOffset()
-        self.m_sonicPD = self.ui.m_paraSetWidget.getSonicPD()
         #mm/us
-        self.m_sonicV = self.ui.m_paraSetWidget.getSonicV() / 1000
+        #self.m_sonicV = self.ui.m_paraSetWidget.getSonicV() / 1000
         self.m_gate1 = self.ui.m_paraSetWidget.getGate1()
         self.m_gate2 = self.ui.m_paraSetWidget.getGate2()
     
     def updateAxis(self):
+        self.m_offset = self.ui.m_paraSetWidget.getOffset()
+        self.m_sonicPD = self.ui.m_paraSetWidget.getSonicPD()
         self.ui.m_aScanWidget.updateAxis()
         
     def getXAxisRange(self):
@@ -78,7 +85,7 @@ class MainWindow(MainWindowUi):
     #main thread
     def createThreadToRecvData(self):
         self.m_startSys = True
-        self.m_recvInterval = 0.6
+        self.m_recvInterval = 0.1
         self.m_timerThread = threading.Timer(self.m_recvInterval, self.recvScanData)
         self.m_timerThread.start()
         self.m_drawDone = True

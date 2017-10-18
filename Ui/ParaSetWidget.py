@@ -114,10 +114,19 @@ class ParaSetWidget(ParaSetWidgetUi):
         4000, 5000, 8000, 10000, 16000]
         prfIndex = self.ui.m_prf.currentIndex()
         return prfList[prfIndex]
+    
+    def getChanNum(self):
+        chanSum = 16
+        chanNum = 0
+        for i in range(0, chanSum):
+            if self.m_chanEnabled & (1 << i):
+                chanNum += 1
+        chanNum = min(chanNum, 1)
+        return chanNum
 
     def setPRF(self):
         prf = self.getPRFValue()
-        prf /= 8
+        prf /= self.getChanNum()
         data = int(10 ** 9 / prf / 200)
         self.writePara(0x06, data)
         
