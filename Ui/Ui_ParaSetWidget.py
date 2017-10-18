@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\ParaSetWidget.ui'
 #
-# Created: Tue Oct 17 09:51:45 2017
+# Created: Wed Oct 18 09:37:14 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -219,7 +219,6 @@ class Ui_ParaSetWidget(object):
         self.m_prf.addItem(_fromUtf8(""))
         self.m_prf.addItem(_fromUtf8(""))
         self.m_prf.addItem(_fromUtf8(""))
-        self.m_prf.addItem(_fromUtf8(""))
         self.horizontalLayout_3.addWidget(self.m_prf)
         self.gridLayout.addLayout(self.horizontalLayout_3, 1, 0, 1, 1)
         self.gridLayout_3.addLayout(self.gridLayout, 1, 0, 1, 1)
@@ -403,7 +402,6 @@ class Ui_ParaSetWidget(object):
         self.m_prf.setItemText(10, _translate("ParaSetWidget", "10000", None))
         self.m_prf.setItemText(11, _translate("ParaSetWidget", "16000", None))
         self.m_prf.setItemText(12, _translate("ParaSetWidget", "32000", None))
-        self.m_prf.setItemText(13, _translate("ParaSetWidget", "64000", None))
         self.m_gate1Checked.setText(_translate("ParaSetWidget", "闸门1", None))
         self.label_14.setText(_translate("ParaSetWidget", "阈值", None))
         self.label_12.setText(_translate("ParaSetWidget", "起始", None))

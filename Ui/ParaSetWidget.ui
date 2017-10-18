@@ -505,11 +505,6 @@
                   <string>32000</string>
                  </property>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>64000</string>
-                 </property>
-                </item>
                </widget>
               </item>
              </layout>

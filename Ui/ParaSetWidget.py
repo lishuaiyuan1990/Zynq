@@ -113,7 +113,7 @@ class ParaSetWidget(ParaSetWidgetUi):
     
     def getPRFValue(self):
         prfList = [80, 160, 240, 400, 500, 1000, 2000, \
-        4000, 5000, 8000, 10000, 16000, 32000, 64000]
+        4000, 5000, 8000, 10000, 16000, 32000]
         prfIndex = self.ui.m_prf.currentIndex()
         return prfList[prfIndex]
     
