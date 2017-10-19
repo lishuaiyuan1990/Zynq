@@ -26,6 +26,8 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.ui.m_sampleLen.editingFinished.connect(self.setSampleLen)
         self.ui.m_sampleLen.editingFinished.connect(self.setCompressRatio)
         self.ui.m_sonicPD.editingFinished.connect(self.setCompressRatio)
+        self.ui.m_sonicV.editingFinished.connect(self.setSonicV)
+        
             
     def startSys(self):
         #start sys
@@ -91,7 +93,6 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.setProbePrf()
         self.setGain()
         self.setSonicPD()
-        self.setSonicV()
         self.setOffset()
         self.setSampleLen()
         self.setRecvChanNo()
@@ -171,8 +172,10 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.writePara(0x11,compressRatio)
         
     def setSonicV(self):
-        sonicV = self.ui.m_sonicV.value()
-        self.writePara(0x0C,sonicV)
+        #sonicV = self.ui.m_sonicV.value()
+        #self.writePara(0x0C,sonicV)
+        self.setCompressRatio()
+        self.setOffset()
     
     def getSonicV(self):
         #m/s
