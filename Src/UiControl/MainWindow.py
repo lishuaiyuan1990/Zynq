@@ -93,7 +93,8 @@ class MainWindow(MainWindowUi):
     
     def parseFrameDataAndDraw(self, data):
         aScanDataObj = AScanData(data)
-        aScanDataList = aScanDataObj.getAScanList()
+        chanNo = 0
+        aScanDataList = aScanDataObj.getAScanList(chanNo)
         if len(aScanDataList) <= 0:
             return
         drawClock = 0

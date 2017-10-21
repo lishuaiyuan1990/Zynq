@@ -39,7 +39,7 @@ class AScanData(object):
             self.m_frameHeadNo += 1
             self.m_frameIndexList[self.m_frameHeadNo - 1] = retIndex
             if self.m_frameHeadNo >= 2:
-                self.m_frameLen = value & 0x0000FFFF
+                self.m_frameLen = value & 0x00000FFF
                 frameLen = (self.m_frameIndexList[1] - self.m_frameIndexList[0]) / 4
                 if frameLen != self.m_frameLen:
                     print "frameLen Error: 1 (frameLen in frameHead error)"
@@ -59,18 +59,22 @@ class AScanData(object):
     
     def genAScanList(self, dataTuple):
         aScanList = []
-        #frameHead = dataTuple[0]
+        frameHead = dataTuple[0]
+        chanNo = (frameHead & 0x0000F000) >> 12
+        #print "frameHead: %0#8X chanNo: %0#8X " % (frameHead, chanNo)
         frameData = dataTuple[1:]
         for index, value in enumerate(frameData):
             caveData = self.parseFrameData(value)
             aScanList.append(caveData[0])
             #aScanList.append(caveData[1])
-        self.m_parsedFrameDataList.append(aScanList)
+        if chanNo not in self.m_parsedFrameDataDict.keys():
+            self.m_parsedFrameDataDict[chanNo] = []
+        self.m_parsedFrameDataDict[chanNo].append(aScanList)
         return aScanList
     
     #rawData 32 bit
     def parseFrameData(self, rawData):
-        dataL10 = 0x3FF
+        dataL10 = 0xFFFF
         dataL = rawData & dataL10
         #dataH = rawData >> 10
         #return [dataL,  dataH]
@@ -78,34 +82,36 @@ class AScanData(object):
         
         
     def parseAscanData(self):
-        self.m_parsedFrameDataList = []
+        self.m_parsedFrameDataDict = {}
+        for i in range(0, 16):
+            self.m_parsedFrameDataDict[i] = []
         frameHeadIndex = self.getFirstFrameHead()
         if frameHeadIndex == -1:
-            return self.m_parsedFrameDataList
+            return self.m_parsedFrameDataDict
         self.iterateFrameData(startIndex = frameHeadIndex, frameStep = 1, cbIterate = self.genAScanList)
-        return self.m_parsedFrameDataList
+        return self.m_parsedFrameDataDict
     
-    def compressAScanList(self):
+    def compressAScanList(self, chanNo):
         recvInterval = 0.1
         fps = 15
         AScanListLen = int(round(recvInterval * fps))
-        rawAScanListLen = len(self.m_parsedFrameDataList)
+        rawAScanListLen = len(self.m_parsedFrameDataDict[chanNo])
         step = max(int(rawAScanListLen / AScanListLen), 1)
         retList = []
         for i in range(0, rawAScanListLen, step):
-            retList.append(self.m_parsedFrameDataList[i])
+            retList.append(self.m_parsedFrameDataDict[chanNo][i])
         return retList
         
     
-    def limitDataRange(self):
+    def limitDataRange(self, chanNo):
         maxData = 2 ** 10 - 1.0
-        return np.array(self.compressAScanList()) / maxData * 100
+        return np.array(self.compressAScanList(chanNo)) / maxData * 100
     
-    def getAScanList(self):
-        return self.limitDataRange()
+    def getAScanList(self, chanNo):
+        return self.limitDataRange(chanNo)
         
-    def getRawAScanList(self):
-        return self.m_parsedFrameDataList
+    def getRawAScanList(self, chanNo):
+        return self.m_parsedFrameDataDict[chanNo]
 
 
 
