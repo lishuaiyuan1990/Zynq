@@ -83,6 +83,7 @@ class ParaSetWidget(ParaSetWidgetUi):
         else:
             data = ~(1 << chan)
             self.m_chanEnabled = self.m_chanEnabled & data
+        self.sendChanChecked()
         return
         
     def sendParaSlot(self):
