@@ -10,13 +10,14 @@ class DetectionUtils(object):
         dataBase = (dataRange[0] + dataRange[1]) / 2;
         targetArray = np.array(aScanData) - dataBase
         detectionArray = map(detectionFunc, targetArray)
-        retArray = np.array(detectionArray) + dataBase
-        return retArray
+        #retArray = np.array(detectionArray) + dataBase
+        return detectionArray
         
     @staticmethod
     def negativeToZero(data):
         if data < 0:
             data = 0
+        data *= 2
         return data
         
     @staticmethod
@@ -27,15 +28,23 @@ class DetectionUtils(object):
     def positiveToZero(data):
         if data > 0:
             data = 0
+        data *= -2
         return data
         
     @staticmethod
     def negativeDetection(aScanData):
         return DetectionUtils.detection(aScanData, DetectionUtils.positiveToZero)
+
+    @staticmethod
+    def negativeToPositive(data):
+        if data < 0:
+            data *= -1
+        data *= 2
+        return data
     
     @staticmethod
     def allDetection(aScanData):
-        return DetectionUtils.detection(aScanData, abs)
+        return DetectionUtils.detection(aScanData, DetectionUtils.negativeToPositive)
 
 class DynaGainUtils(object):
     @staticmethod
