@@ -21,7 +21,6 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.ui.m_prf.currentIndexChanged.connect(self.setPRF)
         self.ui.m_gain.editingFinished.connect(self.setGain)
         self.ui.m_offset.editingFinished.connect(self.setOffset)
-        self.ui.m_recvChanNo.currentIndexChanged.connect(self.setRecvChanNo)
         self.ui.m_probePrf.editingFinished.connect(self.setProbePrf)
         self.ui.m_sampleLen.editingFinished.connect(self.setSampleLen)
         self.ui.m_sampleLen.editingFinished.connect(self.setCompressRatio)
@@ -31,7 +30,7 @@ class ParaSetWidget(ParaSetWidgetUi):
             
     def startSys(self):
         #start sys
-        self.m_clientSocketTransObj.writePara(0x00030001)
+        #self.m_clientSocketTransObj.writePara(0x00030001)
         #create thread to read DMA
         self.m_clientSocketTransObj.writePara(97)
         #config DMA
@@ -59,6 +58,7 @@ class ParaSetWidget(ParaSetWidgetUi):
     
     def reStartSys(self):
         #self.writePara(0x03, 1)
+        self.m_clientSocketTransObj.writePara(97)
         self.writePara(0x04, 1)
     
     def setSocketTransObj(self,  socketTrans):
@@ -97,14 +97,12 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.setSonicPD()
         self.setOffset()
         self.setSampleLen()
-        self.setRecvChanNo()
         self.setCompressRatio()
         #self.setGainRangeNo()
         self.m_haveSendPara = True
     
     def writePara(self, handle, para = 0):
-        chanNo = int(self.ui.m_chanNo.currentIndex())
-        data = (handle << 24) + (chanNo << 16)  + int(para)
+        data = (handle << 24)   + int(para)
         print "writePara %0#8X" % data
         self.m_clientSocketTransObj.writePara(data)
     
@@ -124,12 +122,16 @@ class ParaSetWidget(ParaSetWidgetUi):
         for i in range(0, chanSum):
             if self.m_chanEnabled & (1 << i):
                 chanNum += 1
-        chanNum = min(chanNum, 1)
+        #chanNum = min(chanNum, 1)
         return chanNum
 
     def setPRF(self):
+        chanNum = self.getChanNum()
+        print "chanNum", chanNum
+        if chanNum <= 0:
+            return
         prf = self.getPRFValue()
-        prf /= self.getChanNum()
+        prf /= chanNum
         data = int(10 ** 9 / prf / 200)
         self.writePara(0x06, data)
         
@@ -209,16 +211,7 @@ class ParaSetWidget(ParaSetWidgetUi):
         if self.ui.m_gain.value() > 39.7:
             data = 0
         self.writePara(0x0F, data)
-    
-    def getRecvSendData(self):
-        sendRecvChanList = [0, 1, 2, 3, 4, 6, 7, 5]
-        recvChanNo = self.ui.m_recvChanNo.currentIndex()
-        return sendRecvChanList[recvChanNo]
         
-    def setRecvChanNo(self):
-        recvChanNo = self.getRecvSendData()
-        self.writePara(0x10, recvChanNo)
-    
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)

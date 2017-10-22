@@ -31,14 +31,7 @@ class MainWindow(MainWindowUi):
         self.configSignalAndSlot()
         self.updateAxis()
         self.configAxis()
-        self.mainUpdate()
-    
-    def mainUpdate(self):
-        #sendNum = self.m_clientSocketTransObj.writePara(0xFFFF)
-        #print "sendNum: ",  sendNum 
-        timerThread = threading.Timer(1.0, self.mainUpdate)
-        timerThread.start()
-        
+            
     def configSignalAndSlot(self):
         self.connect(self.ui.m_paraSetWidget.ui.m_openSysBtn,  QtCore.SIGNAL("clicked()"),\
         self.createThreadToRecvData)
@@ -102,7 +95,7 @@ class MainWindow(MainWindowUi):
 
         dynaGainObj = self.parseDynaGain()
         
-        #print "chanNo ",chanNo
+        #print "parseFrameDataAndDraw chanNo ",chanNo
         aScanDataList = aScanDataObj.getAScanList(chanNo, detectionMode, dynaGainObj)
         if len(aScanDataList) <= 0:
             return
@@ -154,9 +147,11 @@ class MainWindow(MainWindowUi):
         
     def recvScanData(self):
         max_pkg_len = 50000
-        data = self.m_clientSocketTransObj.recvData(max_pkg_len)
+        try:
+            data = self.m_clientSocketTransObj.recvData(max_pkg_len)
+        except:
+            return
         self.parseFrameDataAndDraw(data)
-
         #one page read done
         self.m_clientSocketTransObj.writePara(0xDDDD)
         self.m_clockTimes += 1

@@ -30,7 +30,7 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>通道选择</string>
+           <string>通道显示选择</string>
           </property>
          </widget>
         </item>
