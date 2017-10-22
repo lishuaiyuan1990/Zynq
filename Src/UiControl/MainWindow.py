@@ -9,6 +9,8 @@ from Ui import MainWindowUi
 from Src.TransLib import SocketTrans
 from Src.ScanData import AScanData, Gate
 
+import time
+
 IP = "192.168.1.10"
 PORT = 6869
 
@@ -59,8 +61,8 @@ class MainWindow(MainWindowUi):
         self.m_sampleFreq = 100
         #mm/us
         #self.m_sonicV = self.ui.m_paraSetWidget.getSonicV() / 1000
-        self.m_gate1 = self.ui.m_paraSetWidget.getGate1()
-        self.m_gate2 = self.ui.m_paraSetWidget.getGate2()
+        self.m_gateList = self.ui.m_parseToolWidget.getGateList()
+        #self.m_gate2 = self.ui.m_parseToolWidget.getGate2()
     
     def updateAxis(self):
         self.m_offset = self.ui.m_paraSetWidget.getOffset()
@@ -90,11 +92,15 @@ class MainWindow(MainWindowUi):
         self.m_timerThread.start()
         self.m_drawDone = True
         self.m_stopDraw = False
+        self.m_isDrawing = False
     
     def parseFrameDataAndDraw(self, data):
         aScanDataObj = AScanData(data)
-        chanNo = 0
-        aScanDataList = aScanDataObj.getAScanList(chanNo)
+        chanNo = self.ui.m_parseToolWidget.getChanNo()
+        detectionMode = self.ui.m_parseToolWidget.getDetectionMode()
+
+        #print "chanNo ",chanNo
+        aScanDataList = aScanDataObj.getAScanList(chanNo, detectionMode)
         if len(aScanDataList) <= 0:
             return
         drawClock = 0
@@ -104,35 +110,29 @@ class MainWindow(MainWindowUi):
         return
     
     def drawGate(self):
-        self.ui.m_aScanWidget.drawGate(self.m_gate1)
-        self.ui.m_aScanWidget.drawGate(self.m_gate2)
+        for gate in self.m_gateList:
+            self.ui.m_aScanWidget.drawGate(gate)
+        return
     
     def drawAScanData(self, dataList, drawClock, drawInterval, firstTime = False):
         if not self.m_startSys:
-            return
-        if firstTime and not self.m_drawDone:
-            self.m_stopDraw = True
-            self.m_drawThread = threading.Timer(drawInterval, self.drawAScanData, [dataList, drawClock, drawInterval, True])
-            self.m_drawThread.start()
-            return
-        self.m_drawDone = False
-        if drawClock >= len(dataList) or self.m_stopDraw:
-            self.m_stopDraw = False
-            self.m_drawDone = True
+            return        
+        if drawClock >= len(dataList):
             return
         data = dataList[drawClock]
         scanData = {}
         scanData['y'] = copy.deepcopy(data)
         scanRange = self.getXAxisRange()
         scanData['x'] = np.linspace(scanRange['start'], scanRange['end'], len(data))
-        self.configAxis()
-        self.drawGate()
-        self.ui.m_aScanWidget.drawData(scanData)
+        if not self.m_isDrawing:
+            self.m_isDrawing = True
+            self.configAxis()
+            self.drawGate()
+            self.ui.m_aScanWidget.drawData(scanData)
+            self.m_isDrawing = False
+        else:
+            print "conflict...", self.m_clockTimes
         drawClock += 1
-        if drawClock >= len(dataList) or self.m_stopDraw:
-            self.m_stopDraw = False
-            self.m_drawDone = True
-            return
         self.m_drawThread = threading.Timer(drawInterval, self.drawAScanData, [dataList, drawClock, drawInterval])
         self.m_drawThread.start()
         

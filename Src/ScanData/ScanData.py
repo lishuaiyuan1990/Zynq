@@ -1,5 +1,6 @@
 import numpy as np
 import struct
+from ParseScanDataUtils import DetectionUtils
 
 FrameLen = 1250 
 FrameHead = 0xCCDD
@@ -93,7 +94,7 @@ class AScanData(object):
     
     def compressAScanList(self, chanNo):
         recvInterval = 0.1
-        fps = 15
+        fps = 10
         AScanListLen = int(round(recvInterval * fps))
         rawAScanListLen = len(self.m_parsedFrameDataDict[chanNo])
         step = max(int(rawAScanListLen / AScanListLen), 1)
@@ -102,17 +103,26 @@ class AScanData(object):
             retList.append(self.m_parsedFrameDataDict[chanNo][i])
         return retList
         
-    
     def limitDataRange(self, chanNo):
         maxData = 2 ** 10 - 1.0
         return np.array(self.compressAScanList(chanNo)) / maxData * 100
     
-    def getAScanList(self, chanNo):
-        return self.limitDataRange(chanNo)
-        
+    def genAScanDectionData(self, aScanList, detectionMode):
+        dectionFunc = None
+        if detectionMode == 1:
+            dectionFunc = DetectionUtils.positiveDetection
+        elif detectionMode == 2:
+            dectionFunc = DetectionUtils.negativeDetection
+        elif detectionMode == 3:
+            dectionFunc = DetectionUtils.allDetection
+        return map(dectionFunc, aScanList)
+
+    def getAScanList(self, chanNo, detectionMode):
+        limitRangeAScanList = self.limitDataRange(chanNo)
+        return self.genAScanDectionData(limitRangeAScanList, detectionMode)
+
     def getRawAScanList(self, chanNo):
         return self.m_parsedFrameDataDict[chanNo]
-
 
 
 class Gate(object):

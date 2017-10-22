@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project ZynqClient -->
-<!-- Saved: 2017-10-12, 10:45:58 -->
+<!-- Saved: 2017-10-21, 23:03:38 -->
 <!-- Copyright (C) 2017 ,  -->
 <Project version="5.1">
   <Language></Language>
@@ -14,6 +14,7 @@
   <Eol index="0"/>
   <Sources>
     <Source>Main.py</Source>
+    <Source>Src/ScanData/ParseScanDataUtils.py</Source>
     <Source>Src/ScanData/ScanData.py</Source>
     <Source>Src/ScanData/__init__.py</Source>
     <Source>Src/TransLib/SocketTrans.py</Source>
@@ -26,13 +27,17 @@
     <Source>Ui/MainWindowUi.py</Source>
     <Source>Ui/ParaSetWidget.py</Source>
     <Source>Ui/ParaSetWidgetUi.py</Source>
+    <Source>Ui/ParseToolWidget.py</Source>
+    <Source>Ui/ParseToolWidgetUi.py</Source>
     <Source>Ui/ScanWidget.py</Source>
     <Source>Ui/Ui_MainWindow.py</Source>
     <Source>Ui/Ui_ParaSetWidget.py</Source>
+    <Source>Ui/Ui_ParseToolWidget.py</Source>
     <Source>Ui/__init__.py</Source>
     <Source>__init__.py</Source>
   </Sources>
   <Forms>
+    <Form>Ui/ParseToolWidget.ui</Form>
     <Form>Ui/MainWindow.ui</Form>
     <Form>Ui/ParaSetWidget.ui</Form>
   </Forms>

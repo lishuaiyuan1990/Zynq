@@ -53,7 +53,7 @@ class AScanMplCanvas(MyMplCanvas):
         self.axes.grid(True, linestyle = "-.")
         self.m_aScanPlotter = None
         self.m_updateAxis = True
-        self.m_gatePlotter = {'#FF0000': None, '#0000FF': None, '#00FF00': None}
+        self.m_gatePlotter = {'#FF0000': None, '#0000FF': None, '#00FF00': None, '#FFFF00': None}
     
     def configXAxis(self, start, end, stepNum,  label = 'x'):
         self.m_xStart = start

@@ -6,7 +6,6 @@ class ParaSetWidget(ParaSetWidgetUi):
     def __init__(self, parent = None):
         super(ParaSetWidget, self).__init__(parent)
         self.configSignalAndSlot()
-        self.m_gateProcesser = GateProcess(self.ui)
         #8 chan
         self.m_chanEnabled = 0xFF
         self.m_offset = 20
@@ -213,90 +212,6 @@ class ParaSetWidget(ParaSetWidgetUi):
     def setRecvChanNo(self):
         recvChanNo = self.getRecvSendData()
         self.writePara(0x10, recvChanNo)
-    
-    def getGate1(self):
-        return self.m_gateProcesser.getGate1()
-    
-    def getGate2(self):
-        return self.m_gateProcesser.getGate2() 
-
-class GateProcess(QtCore.QObject):
-    gateUpdated = QtCore.pyqtSignal()
-    def __init__(self, ui):
-        super(GateProcess, self).__init__()
-        self.ui = ui
-        self.configSignalAndSlot()
-        self.initGate1()
-        self.initGate2()
-    
-    def getGate1(self):
-        return self.m_gate1
-    
-    def getGate2(self):
-        return self.m_gate2
-    
-    def configSignalAndSlot(self):
-        self.ui.m_gate1Checked.stateChanged.connect(self.updateGate1)
-        self.ui.m_gate1Start.valueChanged.connect(self.updateGate1)
-        self.ui.m_gate1Len.valueChanged.connect(self.updateGate1)
-        self.ui.m_gate1Threshold.valueChanged.connect(self.updateGate1)
-        
-        self.ui.m_gate2Checked.stateChanged.connect(self.updateGate2)
-        self.ui.m_gate2Start.valueChanged.connect(self.updateGate2)
-        self.ui.m_gate2Len.valueChanged.connect(self.updateGate2)
-        self.ui.m_gate2Threshold.valueChanged.connect(self.updateGate2)
-
-    def initGate1(self):
-        color = "#FF0000"
-        checked = self.ui.m_gate1Checked.checkState()
-        enabled = False
-        if checked == QtCore.Qt.Checked:
-            enabled = True
-        start = self.ui.m_gate1Start.value()
-        len   = self.ui.m_gate1Len.value()
-        threshold = self.ui.m_gate1Threshold.value()
-        self.m_gate1 = Gate(start, len, threshold, enabled, color)
-        self.gateUpdated.emit()
-    
-    def updateGate1(self):
-        checked = self.ui.m_gate1Checked.checkState()
-        enabled = False
-        if checked == QtCore.Qt.Checked:
-            enabled = True
-        start = self.ui.m_gate1Start.value()
-        len   = self.ui.m_gate1Len.value()
-        threshold = self.ui.m_gate1Threshold.value()
-        self.m_gate1.setStart(start)
-        self.m_gate1.setLen(len)
-        self.m_gate1.setThreshold(threshold)
-        self.m_gate1.setEnabled(enabled)
-        self.gateUpdated.emit()
-    
-    def initGate2(self):
-        color = "#00FF00"
-        checked = self.ui.m_gate2Checked.checkState()
-        enabled = False
-        if checked == QtCore.Qt.Checked:
-            enabled = True
-        start = self.ui.m_gate2Start.value()
-        len   = self.ui.m_gate2Len.value()
-        threshold = self.ui.m_gate2Threshold.value()
-        self.m_gate2 = Gate(start, len, threshold, enabled, color)
-        self.gateUpdated.emit()
-    
-    def updateGate2(self):
-        checked = self.ui.m_gate2Checked.checkState()
-        enabled = False
-        if checked == QtCore.Qt.Checked:
-            enabled = True
-        start = self.ui.m_gate2Start.value()
-        len   = self.ui.m_gate2Len.value()
-        threshold = self.ui.m_gate2Threshold.value()
-        self.m_gate2.setStart(start)
-        self.m_gate2.setLen(len)
-        self.m_gate2.setThreshold(threshold)
-        self.m_gate2.setEnabled(enabled)
-        self.gateUpdated.emit()
     
 if __name__ == "__main__":
     import sys

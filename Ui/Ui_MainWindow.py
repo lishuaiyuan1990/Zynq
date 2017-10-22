@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\MainWindow.ui'
 #
-# Created: Mon Oct 16 23:25:42 2017
+# Created: Sat Oct 21 22:56:55 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(925, 633)
+        MainWindow.resize(852, 634)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -35,7 +35,7 @@ class Ui_MainWindow(object):
         self.centralWidget = QtGui.QWidget(MainWindow)
         self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
         self.m_paraSetWidget = ParaSetWidget(self.centralWidget)
-        self.m_paraSetWidget.setGeometry(QtCore.QRect(660, 10, 261, 611))
+        self.m_paraSetWidget.setGeometry(QtCore.QRect(10, 480, 831, 141))
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -43,8 +43,11 @@ class Ui_MainWindow(object):
         self.m_paraSetWidget.setSizePolicy(sizePolicy)
         self.m_paraSetWidget.setObjectName(_fromUtf8("m_paraSetWidget"))
         self.m_aScanWidget = AScanWidget(self.centralWidget)
-        self.m_aScanWidget.setGeometry(QtCore.QRect(10, 10, 631, 611))
+        self.m_aScanWidget.setGeometry(QtCore.QRect(10, 10, 611, 461))
         self.m_aScanWidget.setObjectName(_fromUtf8("m_aScanWidget"))
+        self.m_parseToolWidget = ParseToolWidget(self.centralWidget)
+        self.m_parseToolWidget.setGeometry(QtCore.QRect(630, 10, 211, 461))
+        self.m_parseToolWidget.setObjectName(_fromUtf8("m_parseToolWidget"))
         MainWindow.setCentralWidget(self.centralWidget)
 
         self.retranslateUi(MainWindow)
@@ -55,6 +58,7 @@ class Ui_MainWindow(object):
 
 from ScanWidget import AScanWidget
 from ParaSetWidget import ParaSetWidget
+from ParseToolWidget import ParseToolWidget
 
 if __name__ == "__main__":
     import sys

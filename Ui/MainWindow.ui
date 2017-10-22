@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>925</width>
-    <height>633</height>
+    <width>852</width>
+    <height>634</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -23,10 +23,10 @@
    <widget class="ParaSetWidget" name="m_paraSetWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>10</y>
-      <width>261</width>
-      <height>611</height>
+      <x>10</x>
+      <y>480</y>
+      <width>831</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -41,8 +41,18 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>631</width>
-      <height>611</height>
+      <width>611</width>
+      <height>461</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="ParseToolWidget" name="m_parseToolWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>10</y>
+      <width>211</width>
+      <height>461</height>
      </rect>
     </property>
    </widget>
@@ -59,6 +69,12 @@
    <class>AScanWidget</class>
    <extends>QWidget</extends>
    <header>ScanWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ParseToolWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">ParseToolWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
