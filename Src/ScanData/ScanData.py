@@ -1,6 +1,6 @@
 import numpy as np
 import struct
-from ParseScanDataUtils import DetectionUtils
+from ParseScanDataUtils import DetectionUtils, DynaGainUtils
 
 FrameLen = 1250 
 FrameHead = 0xCCDD
@@ -117,21 +117,36 @@ class AScanData(object):
             dectionFunc = DetectionUtils.allDetection
         return map(dectionFunc, aScanList)
 
-    def getAScanList(self, chanNo, detectionMode):
+    def genDynaGainData(self, aScanList, dynaGainObj):
+        dynaGainFunc = None
+        if dynaGainObj['gain'] != 0:
+            dynaGainFunc = DynaGainUtils.dynaGain
+        else:
+            return aScanList
+        return map(dynaGainFunc, aScanList, [dynaGainObj['dynaGainRange']] * len(aScanList), [dynaGainObj['gain']] * len(aScanList))
+
+    def getAScanList(self, chanNo, detectionMode, dynaGainObj):
         limitRangeAScanList = self.limitDataRange(chanNo)
-        return self.genAScanDectionData(limitRangeAScanList, detectionMode)
+        detectionData = self.genAScanDectionData(limitRangeAScanList, detectionMode)
+        retAScanList = self.genDynaGainData(detectionData, dynaGainObj)
+        #print retAScanList
+        return retAScanList
 
     def getRawAScanList(self, chanNo):
         return self.m_parsedFrameDataDict[chanNo]
 
 
 class Gate(object):
-    def __init__(self, start, len, threshold, enabled = True, color = "#FF0000"):
+    def __init__(self, start, len, threshold, enabled = True, color = "#FF0000", gain = 0):
         self.m_start = start
         self.m_len = len
         self.m_threshold = threshold
         self.m_color = color
         self.m_enabled = enabled
+        self.m_gain = gain
+
+    def setGain(self, gain):
+        self.m_gain = gain
     
     def setStart(self, start):
         self.m_start = start

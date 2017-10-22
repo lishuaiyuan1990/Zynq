@@ -10,6 +10,7 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.m_chanEnabled = 0xFF
         self.m_offset = 20
         self.m_haveSendPara = False
+        self.m_sampleLenValue = self.ui.m_sampleLen.value()
     
     def configSignalAndSlot(self):
         self.ui.m_stopSysBtn.clicked.connect(self.stopSys)
@@ -83,6 +84,7 @@ class ParaSetWidget(ParaSetWidgetUi):
             data = ~(1 << chan)
             self.m_chanEnabled = self.m_chanEnabled & data
         self.sendChanChecked()
+        self.setPRF()
         return
         
     def sendParaSlot(self):
@@ -195,8 +197,12 @@ class ParaSetWidget(ParaSetWidgetUi):
     
     def setSampleLen(self):
         sampleLen = self.ui.m_sampleLen.value()
+        self.m_sampleLenValue = sampleLen
         sendData = sampleLen# / 2
         self.writePara(0x0E, sendData)
+
+    def getSampleLen(self):
+        return self.m_sampleLenValue
     
     def setGainRangeNo(self):
         data = 1

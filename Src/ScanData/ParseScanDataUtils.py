@@ -36,5 +36,24 @@ class DetectionUtils(object):
     @staticmethod
     def allDetection(aScanData):
         return DetectionUtils.detection(aScanData, abs)
+
+class DynaGainUtils(object):
+    @staticmethod
+    def dynaGain(aScanData, dynaGainRange, gain):
+        multi = 10 ** (gain / 20.0)
+        retAScanList = list(aScanData[0:dynaGainRange['start']]) + \
+        list(np.array(aScanData[dynaGainRange['start']:dynaGainRange['end']] * multi)) + \
+        list(aScanData[dynaGainRange['end']:])
+        return map(DynaGainUtils.limitDataByMax, retAScanList)
+        
+    @staticmethod
+    def limitDataByMax(data):
+        maxData = 100
+        if data > maxData:
+            data = 100
+        return data
+        
+        
+        
     
     

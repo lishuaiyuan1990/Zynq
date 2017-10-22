@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\MainWindow.ui'
 #
-# Created: Sat Oct 21 22:56:55 2017
+# Created: Sun Oct 22 12:49:33 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(852, 634)
+        MainWindow.resize(857, 634)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -35,7 +35,7 @@ class Ui_MainWindow(object):
         self.centralWidget = QtGui.QWidget(MainWindow)
         self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
         self.m_paraSetWidget = ParaSetWidget(self.centralWidget)
-        self.m_paraSetWidget.setGeometry(QtCore.QRect(10, 480, 831, 141))
+        self.m_paraSetWidget.setGeometry(QtCore.QRect(10, 480, 841, 141))
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -46,7 +46,7 @@ class Ui_MainWindow(object):
         self.m_aScanWidget.setGeometry(QtCore.QRect(10, 10, 611, 461))
         self.m_aScanWidget.setObjectName(_fromUtf8("m_aScanWidget"))
         self.m_parseToolWidget = ParseToolWidget(self.centralWidget)
-        self.m_parseToolWidget.setGeometry(QtCore.QRect(630, 10, 211, 461))
+        self.m_parseToolWidget.setGeometry(QtCore.QRect(630, 10, 221, 461))
         self.m_parseToolWidget.setObjectName(_fromUtf8("m_parseToolWidget"))
         MainWindow.setCentralWidget(self.centralWidget)
 
