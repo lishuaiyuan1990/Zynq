@@ -91,6 +91,8 @@ class MainWindow(MainWindowUi):
     def refectChano(self, chanNo, triggerMode):
         if triggerMode == 1:
             chanNo = chanNo * 2 + 1
+        else:
+            chanNo = chanNo * 2
         return chanNo
     
     def parseFrameDataAndDraw(self, data):
