@@ -3,3 +3,4 @@ build/Main
 data/
 *.pyc
 dmaData/
+*.json

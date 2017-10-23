@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\ParaSetWidget.ui'
 #
-# Created: Sun Oct 22 16:32:22 2017
+# Created: Mon Oct 23 10:20:08 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,7 +28,7 @@ class Ui_ParaSetWidget(object):
         ParaSetWidget.setObjectName(_fromUtf8("ParaSetWidget"))
         ParaSetWidget.resize(745, 136)
         self.layoutWidget = QtGui.QWidget(ParaSetWidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(12, 7, 721, 116))
+        self.layoutWidget.setGeometry(QtCore.QRect(12, 7, 721, 119))
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.gridLayout_5 = QtGui.QGridLayout(self.layoutWidget)
         self.gridLayout_5.setMargin(0)
@@ -59,12 +59,16 @@ class Ui_ParaSetWidget(object):
         self.m_chanChecked.setObjectName(_fromUtf8("m_chanChecked"))
         self.horizontalLayout_11.addWidget(self.m_chanChecked)
         self.horizontalLayout_12.addLayout(self.horizontalLayout_11)
+        self.m_saveSettingBtn = QtGui.QPushButton(self.layoutWidget)
+        self.m_saveSettingBtn.setObjectName(_fromUtf8("m_saveSettingBtn"))
+        self.horizontalLayout_12.addWidget(self.m_saveSettingBtn)
+        self.m_openSettingBtn = QtGui.QPushButton(self.layoutWidget)
+        self.m_openSettingBtn.setObjectName(_fromUtf8("m_openSettingBtn"))
+        self.horizontalLayout_12.addWidget(self.m_openSettingBtn)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_12.addItem(spacerItem)
         self.horizontalLayout_14 = QtGui.QHBoxLayout()
         self.horizontalLayout_14.setObjectName(_fromUtf8("horizontalLayout_14"))
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_14.addItem(spacerItem1)
         self.horizontalLayout_12.addLayout(self.horizontalLayout_14)
         self.gridLayout_5.addLayout(self.horizontalLayout_12, 0, 0, 1, 1)
         self.gridLayout_4 = QtGui.QGridLayout()
@@ -219,12 +223,12 @@ class Ui_ParaSetWidget(object):
         self.horizontalLayout_4.addWidget(self.m_probePrf)
         self.gridLayout_2.addLayout(self.horizontalLayout_4, 2, 0, 1, 1)
         self.gridLayout_4.addLayout(self.gridLayout_2, 0, 2, 1, 1)
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_4.addItem(spacerItem1, 0, 3, 1, 1)
         spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_4.addItem(spacerItem2, 0, 3, 1, 1)
+        self.gridLayout_4.addItem(spacerItem2, 0, 5, 1, 1)
         spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_4.addItem(spacerItem3, 0, 5, 1, 1)
-        spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_4.addItem(spacerItem4, 0, 1, 1, 1)
+        self.gridLayout_4.addItem(spacerItem3, 0, 1, 1, 1)
         self.gridLayout_5.addLayout(self.gridLayout_4, 1, 0, 1, 1)
 
         self.retranslateUi(ParaSetWidget)
@@ -244,6 +248,8 @@ class Ui_ParaSetWidget(object):
         self.m_chanNo.setItemText(6, _translate("ParaSetWidget", "通道7", None))
         self.m_chanNo.setItemText(7, _translate("ParaSetWidget", "通道8", None))
         self.m_chanChecked.setText(_translate("ParaSetWidget", "通道使能", None))
+        self.m_saveSettingBtn.setText(_translate("ParaSetWidget", "保存设置", None))
+        self.m_openSettingBtn.setText(_translate("ParaSetWidget", "打开设置", None))
         self.label_4.setText(_translate("ParaSetWidget", "激励电压(V)", None))
         self.m_eVoltage.setItemText(0, _translate("ParaSetWidget", "400", None))
         self.m_eVoltage.setItemText(1, _translate("ParaSetWidget", "300", None))

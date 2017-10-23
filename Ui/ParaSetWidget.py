@@ -2,6 +2,9 @@ from PyQt4 import QtCore
 from PyQt4 import QtGui
 from ParaSetWidgetUi import ParaSetWidgetUi
 from Src.ScanData import Gate
+
+import json
+
 class ParaSetWidget(ParaSetWidgetUi):
     def __init__(self, parent = None):
         super(ParaSetWidget, self).__init__(parent)
@@ -15,6 +18,8 @@ class ParaSetWidget(ParaSetWidgetUi):
     def configSignalAndSlot(self):
         self.ui.m_stopSysBtn.clicked.connect(self.stopSys)
         self.ui.m_openSysBtn.clicked.connect(self.openSys)
+        self.ui.m_saveSettingBtn.clicked.connect(self.saveSettings)
+        self.ui.m_openSettingBtn.clicked.connect(self.openSettings)
         self.ui.m_chanChecked.stateChanged.connect(self.setChanChecked)
         self.ui.m_chanNo.currentIndexChanged.connect(self.syncChanState)
         self.ui.m_eVoltage.currentIndexChanged.connect(self.setEVoltage)
@@ -26,7 +31,52 @@ class ParaSetWidget(ParaSetWidgetUi):
         self.ui.m_sampleLen.editingFinished.connect(self.setCompressRatio)
         self.ui.m_sonicPD.editingFinished.connect(self.setCompressRatio)
         self.ui.m_sonicV.editingFinished.connect(self.setSonicV)
-        
+
+    def saveSettings(self):
+        fileName2 = QtGui.QFileDialog.getSaveFileName(self,  "Save", "./",  "Settings Files (*.json)")
+        if len(fileName2) <= 0:
+            return
+        fileObj = open(fileName2, 'w')
+        jsonStr = json.dumps(self.settings())
+        fileObj.write(jsonStr)
+        fileObj.close()
+
+
+    def openSettings(self):
+        fileName2 = QtGui.QFileDialog.getOpenFileName(self,  "Open", "./",  "Settings Files (*.json)")
+        if len(fileName2) <= 0:
+            return
+        fileObj = open(fileName2, 'r')
+        jsonStr = fileObj.read()
+        fileObj.close()
+        settingsObj = json.loads(jsonStr)
+        self.configSettings(settingsObj)
+
+
+    def settings(self):
+        settingsObj = {}
+        settingsObj['chanEnabled'] = self.m_chanEnabled
+        settingsObj['eVoltageIndex'] = self.ui.m_eVoltage.currentIndex()
+        settingsObj['sonicPD'] = self.ui.m_sonicPD.value()
+        settingsObj['sonicV'] = self.ui.m_sonicV.value()
+        settingsObj['sampleLen'] = self.ui.m_sampleLen.value()
+        settingsObj['gain'] = self.ui.m_gain.value()
+        settingsObj['prfIndex'] = self.ui.m_prf.currentIndex()
+        settingsObj['probePrf'] = self.ui.m_probePrf.value()
+        settingsObj['offset'] = self.ui.m_offset.value()
+        return settingsObj
+
+    def configSettings(self, settingsObj):
+        self.m_chanEnabled = settingsObj['chanEnabled']
+        self.syncChanState()
+        self.ui.m_eVoltage.setCurrentIndex(settingsObj['eVoltageIndex'])
+        self.ui.m_prf.setCurrentIndex(settingsObj['prfIndex'])
+        self.ui.m_sonicPD.setValue(settingsObj['sonicPD'])
+        self.ui.m_sonicV.setValue(settingsObj['sonicV'])
+        self.ui.m_sampleLen.setValue(settingsObj['sampleLen'])
+        self.ui.m_gain.setValue(settingsObj['gain'])
+        self.ui.m_probePrf.setValue(settingsObj['probePrf'])
+        self.ui.m_offset.setValue(settingsObj['offset'])
             
     def startSys(self):
         #start sys
