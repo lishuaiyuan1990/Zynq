@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\ParseToolWidget.ui'
 #
-# Created: Sun Oct 22 16:32:20 2017
+# Created: Sun Oct 22 20:01:03 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -42,10 +42,6 @@ class Ui_ParseToolWidget(object):
         self.horizontalLayout_5.addWidget(self.label)
         self.m_chanNo = QtGui.QComboBox(self.layoutWidget)
         self.m_chanNo.setObjectName(_fromUtf8("m_chanNo"))
-        self.m_chanNo.addItem(_fromUtf8(""))
-        self.m_chanNo.addItem(_fromUtf8(""))
-        self.m_chanNo.addItem(_fromUtf8(""))
-        self.m_chanNo.addItem(_fromUtf8(""))
         self.m_chanNo.addItem(_fromUtf8(""))
         self.m_chanNo.addItem(_fromUtf8(""))
         self.m_chanNo.addItem(_fromUtf8(""))
@@ -291,10 +287,6 @@ class Ui_ParseToolWidget(object):
         self.m_chanNo.setItemText(1, _translate("ParseToolWidget", "通道2", None))
         self.m_chanNo.setItemText(2, _translate("ParseToolWidget", "通道3", None))
         self.m_chanNo.setItemText(3, _translate("ParseToolWidget", "通道4", None))
-        self.m_chanNo.setItemText(4, _translate("ParseToolWidget", "通道5", None))
-        self.m_chanNo.setItemText(5, _translate("ParseToolWidget", "通道6", None))
-        self.m_chanNo.setItemText(6, _translate("ParseToolWidget", "通道7", None))
-        self.m_chanNo.setItemText(7, _translate("ParseToolWidget", "通道8", None))
         self.label_2.setText(_translate("ParseToolWidget", "波形显示", None))
         self.m_detectionMode.setItemText(0, _translate("ParseToolWidget", "射频波", None))
         self.m_detectionMode.setItemText(1, _translate("ParseToolWidget", "正半波", None))

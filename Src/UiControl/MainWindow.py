@@ -87,10 +87,16 @@ class MainWindow(MainWindowUi):
         self.m_drawDone = True
         self.m_stopDraw = False
         self.m_isDrawing = False
+
+    def refectChano(self, chanNo, triggerMode):
+        if triggerMode == 1:
+            chanNo = chanNo * 2 + 1
+        return chanNo
     
     def parseFrameDataAndDraw(self, data):
         aScanDataObj = AScanData(data)
-        chanNo = self.ui.m_parseToolWidget.getChanNo()
+        triggerMode = self.ui.m_paraSetWidget.getTriggerMode()
+        chanNo = self.refectChano(self.ui.m_parseToolWidget.getChanNo(), triggerMode)
         detectionMode = self.ui.m_parseToolWidget.getDetectionMode()
 
         dynaGainObj = self.parseDynaGain()

@@ -15,8 +15,6 @@ class ParaSetWidget(ParaSetWidgetUi):
     def configSignalAndSlot(self):
         self.ui.m_stopSysBtn.clicked.connect(self.stopSys)
         self.ui.m_openSysBtn.clicked.connect(self.openSys)
-        self.ui.m_chanChecked.stateChanged.connect(self.setChanChecked)
-        self.ui.m_chanNo.currentIndexChanged.connect(self.syncChanState)
         self.ui.m_eVoltage.currentIndexChanged.connect(self.setEVoltage)
         self.ui.m_prf.currentIndexChanged.connect(self.setPRF)
         self.ui.m_gain.editingFinished.connect(self.setGain)
@@ -67,26 +65,6 @@ class ParaSetWidget(ParaSetWidgetUi):
     def getSonicPD(self):
         return self.ui.m_sonicPD.value()
     
-    def syncChanState(self):
-        chan = self.ui.m_chanNo.currentIndex()
-        data = (1 << chan)
-        enabled = data & self.m_chanEnabled
-        self.ui.m_chanChecked.setChecked(enabled)
-        
-    def setChanChecked(self):
-        checked = self.ui.m_chanChecked.checkState()
-        chan = self.ui.m_chanNo.currentIndex()
-        data = 0
-        if checked == QtCore.Qt.Checked:
-            data = 1 << chan
-            self.m_chanEnabled = self.m_chanEnabled | data
-        else:
-            data = ~(1 << chan)
-            self.m_chanEnabled = self.m_chanEnabled & data
-        self.sendChanChecked()
-        self.setPRF()
-        return
-        
     def sendParaSlot(self):
         #self.setTriggerMode()
         self.setPRF()
@@ -109,6 +87,9 @@ class ParaSetWidget(ParaSetWidgetUi):
     def setTriggerMode(self):
         triggerMode = self.ui.m_triggerMode.currentIndex()
         self.writePara(0x05, triggerMode)
+
+    def getTriggerMode(self):
+        return self.ui.m_triggerMode.currentIndex()
     
     def getPRFValue(self):
         prfList = [80, 160, 240, 400, 500, 1000, 2000, \

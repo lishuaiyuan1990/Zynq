@@ -56,26 +56,6 @@
             <string>通道4</string>
            </property>
           </item>
-          <item>
-           <property name="text">
-            <string>通道5</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>通道6</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>通道7</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>通道8</string>
-           </property>
-          </item>
          </widget>
         </item>
        </layout>
