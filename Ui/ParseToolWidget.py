@@ -5,31 +5,80 @@ from Src.ScanData import Gate
 class ParseToolWidget(ParseToolWidgetUi):
     def __init__(self, parent = None):
         super(ParseToolWidget, self).__init__(parent)
-        self.m_gateProcesser = GateProcess(self.ui)
+        self.m_chanNoNum = 8
+        self.m_lockList = [False]
+        self.m_gateProcesser = GateProcess(self.ui, self.m_chanNoNum, self.m_lockList)
+        self.initUiData()
+        self.configSignalAndSlot()
+    
+    def initUiData(self):
+        self.m_detectionModeByChano = []
+        for chanNo in range(0, self.m_chanNoNum):
+            self.m_detectionModeByChano.append(self.getCurrentDetectionMode())
+        return
 
-    def getGateList(self):
-        return self.m_gateProcesser.getGateList()
+    def configSignalAndSlot(self):
+        self.ui.m_chanNo.currentIndexChanged.connect(self.updateUi)
+        self.ui.m_detectionMode.currentIndexChanged.connect(self.updateUiData)
+
+
+    def updateUiData(self):
+        chanNo = self.ui.m_chanNo.currentIndex()
+        self.m_detectionModeByChano[chanNo] = self.ui.m_detectionMode.currentIndex()
+
+    def updateUi(self):
+        self.m_lockList[0] = True
+        chanNo = self.ui.m_chanNo.currentIndex()
+        detectionMode = self.m_detectionModeByChano[chanNo]
+        self.ui.m_detectionMode.setCurrentIndex(detectionMode)
+
+        self.m_currentGateList = self.getGateList(chanNo)
+        self.m_gateProcesser.iterateGateUiList(self.updateGateUi)
+        self.m_lockList[0] = False
+
+
+    def updateGateUi(self, gateUi, index):
+        gateList = self.m_currentGateList
+        gateUi['start'].setValue(gateList[index].m_start)
+        gateUi['length'].setValue(gateList[index].m_len)
+        gateUi['threshold'].setValue(gateList[index].m_threshold)
+        if gateUi['gain'] != None:
+            gateUi['gain'].setValue(gateList[index].m_gain)
+        gateUi['checked'].setChecked(gateList[index].m_enabled)
+
+
+    def getGateList(self, chanNo = 0):
+        return self.m_gateProcesser.getGateList(chanNo)
 
     def getChanNo(self):
         chan = self.ui.m_chanNo.currentIndex()
         return chan
 
-    def getDetectionMode(self):
+    def getDetectionMode(self, chanNo):
+        detectionMode = self.ui.m_detectionMode.currentIndex()
+        return detectionMode
+
+    def getCurrentDetectionMode(self):
         detectionMode = self.ui.m_detectionMode.currentIndex()
         return detectionMode
     
-    def getDynaGain(self):
-        dynaGate = self.m_gateProcesser.getDynaGate()
+    def getDynaGain(self, chanNo):
+        dynaGate = self.m_gateProcesser.getDynaGate(chanNo)
         dynaGain = 0
         if dynaGate.m_enabled:
             dynaGain = dynaGate.m_gain
         return {'gate': dynaGate, 'gain': dynaGain}
+
+
+
         
 class GateProcess(QtCore.QObject):
     gateUpdated = QtCore.pyqtSignal()
-    def __init__(self, ui):
+    def __init__(self, ui, chanNoNum, lockList):
         super(GateProcess, self).__init__()
         self.ui = ui
+        self.m_chanNoNum = chanNoNum
+        self.m_lockList = lockList
         self.genGateUiList()
         self.configSignalAndSlot()
         self.initGate()
@@ -45,16 +94,16 @@ class GateProcess(QtCore.QObject):
         'length': self.ui.m_gate4Len, 'threshold': self.ui.m_gate4Threshold, 'color': "#FFFF00", 'gain': self.ui.m_gateGain}
         self.m_gateUiList = [gate1Ui, gate2Ui, gate3Ui, gate4Ui]
     
-    def getDynaGate(self):
-        length = len(self.m_gateList)
-        return self.m_gateList[length - 1] 
+    def getDynaGate(self, chanNo):
+        length = len(self.m_gateListByChaNo[chanNo])
+        return self.m_gateListByChaNo[chanNo][length - 1] 
 
-    def getGateList(self):
-        return self.m_gateList
+    def getGateList(self, chanNo):
+        return self.m_gateListByChaNo[chanNo]
 
     def iterateGateUiList(self, callback):
-        for gateUi in self.m_gateUiList:
-            callback(gateUi)
+        for index, gateUi in enumerate(self.m_gateUiList):
+            callback(gateUi, index)
         return
     
     def configSignalAndSlot(self):
@@ -68,25 +117,32 @@ class GateProcess(QtCore.QObject):
         return
     
     def initGate(self):
-        self.m_gateList = []
-        for gateUi in self.m_gateUiList:
-            checked = gateUi['checked'].checkState()
-            enabled = False
-            if checked == QtCore.Qt.Checked:
-                enabled = True
-            start = gateUi['start'].value()
-            length   = gateUi['length'].value()
-            threshold = gateUi['threshold'].value()
-            gain = 0
-            if gateUi['gain'] != None:
-                gain = gateUi['gain'].value()
-            color = gateUi['color']
-            gate = Gate(start, length, threshold, enabled, color, gain)
-            self.m_gateList.append(gate)
+        self.m_gateListByChaNo = []
+        for chanNo in range(0, self.m_chanNoNum):
+            gateList = []
+            for gateUi in self.m_gateUiList:
+                checked = gateUi['checked'].checkState()
+                enabled = False
+                if checked == QtCore.Qt.Checked:
+                    enabled = True
+                start = gateUi['start'].value()
+                length   = gateUi['length'].value()
+                threshold = gateUi['threshold'].value()
+                gain = 0
+                if gateUi['gain'] != None:
+                    gain = gateUi['gain'].value()
+                color = gateUi['color']
+                gate = Gate(start, length, threshold, enabled, color, gain)
+                gateList.append(gate)
+            self.m_gateListByChaNo.append(gateList)
         self.gateUpdated.emit()
 
 
     def updateGate(self):
+        if self.m_lockList[0]:
+            return
+        chanNo = self.ui.m_chanNo.currentIndex()
+        gateList = self.m_gateListByChaNo[chanNo]
         for index, gateUi in enumerate(self.m_gateUiList):
             checked = gateUi['checked'].checkState()
             enabled = False
@@ -97,10 +153,10 @@ class GateProcess(QtCore.QObject):
             threshold = gateUi['threshold'].value()
             if gateUi['gain'] != None:
                 gain = gateUi['gain'].value()
-                self.m_gateList[index].setGain(gain)
-            self.m_gateList[index].setStart(start)
-            self.m_gateList[index].setLen(length)
-            self.m_gateList[index].setThreshold(threshold)
-            self.m_gateList[index].setEnabled(enabled)
+                gateList[index].setGain(gain)
+            gateList[index].setStart(start)
+            gateList[index].setLen(length)
+            gateList[index].setThreshold(threshold)
+            gateList[index].setEnabled(enabled)
         self.gateUpdated.emit()        
     
