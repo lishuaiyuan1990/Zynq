@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\ParseToolWidget.ui'
 #
-# Created: Sun Oct 22 16:32:20 2017
+# Created: Wed Oct 25 23:07:31 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,9 +26,9 @@ except AttributeError:
 class Ui_ParseToolWidget(object):
     def setupUi(self, ParseToolWidget):
         ParseToolWidget.setObjectName(_fromUtf8("ParseToolWidget"))
-        ParseToolWidget.resize(234, 449)
+        ParseToolWidget.resize(211, 416)
         self.layoutWidget = QtGui.QWidget(ParseToolWidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(12, 12, 208, 411))
+        self.layoutWidget.setGeometry(QtCore.QRect(0, 0, 208, 411))
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.gridLayout_7 = QtGui.QGridLayout(self.layoutWidget)
         self.gridLayout_7.setMargin(0)

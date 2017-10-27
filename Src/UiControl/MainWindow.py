@@ -20,13 +20,14 @@ FrameHead = 0xCCDD
 class MainWindow(MainWindowUi):
     def __init__(self, parent = None):
         super(MainWindow, self).__init__(parent)
-        self.setWindowFlags(self.windowFlags()& ~QtCore.Qt.WindowMaximizeButtonHint)
-        self.setFixedSize(self.width(), self.height())
+        #self.setWindowFlags(self.windowFlags()& ~QtCore.Qt.WindowMaximizeButtonHint)
+        #self.setFixedSize(self.width(), self.height())
         
         self.m_clientSocketTransObj = SocketTrans(IP, PORT)
         self.ui.m_paraSetWidget.setSocketTransObj(self.m_clientSocketTransObj)
         self.m_startSys = False
         self.m_clockTimes = 0
+        self.m_isDrawing = False
         self.setSonicPara()
         self.configSignalAndSlot()
         self.updateAxis()
@@ -54,7 +55,7 @@ class MainWindow(MainWindowUi):
         self.m_sampleFreq = 100
         #mm/us
         #self.m_sonicV = self.ui.m_paraSetWidget.getSonicV() / 1000
-        self.m_gateList = self.ui.m_parseToolWidget.getGateList()
+        self.m_gateList = self.ui.m_parseToolWidget.getGateListByChano()
         #self.m_gate2 = self.ui.m_parseToolWidget.getGate2()
     
     def updateAxis(self):
@@ -81,32 +82,56 @@ class MainWindow(MainWindowUi):
     #main thread
     def createThreadToRecvData(self):
         self.m_startSys = True
-        self.m_recvInterval = 0.1
+        self.m_recvInterval = 0.3
         self.m_timerThread = threading.Timer(self.m_recvInterval, self.recvScanData)
         self.m_timerThread.start()
         self.m_drawDone = True
         self.m_stopDraw = False
-        self.m_isDrawing = False
     
     def parseFrameDataAndDraw(self, data):
         aScanDataObj = AScanData(data)
-        chanNo = self.ui.m_parseToolWidget.getChanNo()
-        detectionMode = self.ui.m_parseToolWidget.getDetectionMode()
 
-        dynaGainObj = self.parseDynaGain()
+        detectionModeByChan = self.ui.m_parseToolWidget.getDetectionModeByChan()
+        index = 0
+        dynaGainObjByChano = []
+        for detectionMode in detectionModeByChan:
+            chanNo = index
+            dynaGainObj = self.parseDynaGain(chanNo)
+            dynaGainObjByChano.append(dynaGainObj)
+            index += 1
+
         
         #print "parseFrameDataAndDraw chanNo ",chanNo
-        aScanDataList = aScanDataObj.getAScanList(chanNo, detectionMode, dynaGainObj)
-        if len(aScanDataList) <= 0:
+        aScanDataList = aScanDataObj.getAScanListByChano(detectionModeByChan, dynaGainObjByChano)
+
+        chanNum = len(aScanDataList)
+        if chanNum <= 0:
             return
+
+        aScanLen = len(aScanDataList[0])
+        if aScanLen <= 0:
+            return
+        aScanDataListByChanNo = self.transScanDataListByChanNo(aScanDataList)
+
+
+
         drawClock = 0
-        drawInterval = 1.0 * self.m_recvInterval / len(aScanDataList)
-        self.m_drawThread = threading.Timer(drawInterval, self.drawAScanData, [aScanDataList, drawClock, drawInterval, True])
+        drawInterval = 1.0 * self.m_recvInterval / len(aScanDataListByChanNo)
+        self.m_drawThread = threading.Timer(drawInterval, self.drawAScanData, [aScanDataListByChanNo, drawClock, drawInterval, True])
         self.m_drawThread.start()
         return
 
-    def parseDynaGain(self):
-        dynaGainObj = self.ui.m_parseToolWidget.getDynaGain()
+    def transScanDataListByChanNo(self, arr):
+        retArr = []
+        index = 0
+        for r in range(0, len(arr[0])):
+            retArr.append([])
+            for i in range(0, len(arr)):
+                retArr[r].append(arr[i][r])
+        return retArr
+
+    def parseDynaGain(self, chanNo):
+        dynaGainObj = self.ui.m_parseToolWidget.getDynaGain(chanNo)
         gate = dynaGainObj['gate']
         gain = dynaGainObj['gain']
         scanRange = self.getXAxisRange()
@@ -119,7 +144,13 @@ class MainWindow(MainWindowUi):
         return {'gain': gain, 'dynaGainRange' : dynaGainRange}
 
     def drawGate(self):
-        for gate in self.m_gateList:
+        gateListByColor = []
+        for r in range(0, len(self.m_gateList[0])):
+            gateListByColor.append([])
+            for i in range(0, len(self.m_gateList)):
+                gateListByColor[r].append(self.m_gateList[i][r])
+
+        for gate in gateListByColor:
             self.ui.m_aScanWidget.drawGate(gate)
         return
     
@@ -129,15 +160,19 @@ class MainWindow(MainWindowUi):
         if drawClock >= len(dataList):
             return
         data = dataList[drawClock]
-        scanData = {}
-        scanData['y'] = copy.deepcopy(data)
+
+        scanDataList = []
         scanRange = self.getXAxisRange()
-        scanData['x'] = np.linspace(scanRange['start'], scanRange['end'], len(data))
+        for d in data:
+            scanData = {}
+            scanData['y'] = copy.deepcopy(d)
+            scanData['x'] = np.linspace(scanRange['start'], scanRange['end'], len(data[0]))
+            scanDataList.append(scanData)
         if not self.m_isDrawing:
             self.m_isDrawing = True
             self.configAxis()
             self.drawGate()
-            self.ui.m_aScanWidget.drawData(scanData)
+            self.ui.m_aScanWidget.drawData(scanDataList)
             self.m_isDrawing = False
         else:
             print "conflict...", self.m_clockTimes

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>745</width>
-    <height>136</height>
+    <width>201</width>
+    <height>403</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,118 +16,15 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>12</x>
-     <y>7</y>
-     <width>721</width>
-     <height>119</height>
+     <x>0</x>
+     <y>0</y>
+     <width>201</width>
+     <height>381</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout_5">
-    <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_12">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_11">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>通道使能选择</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="m_chanNo">
-            <item>
-             <property name="text">
-              <string>通道1</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>通道2</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>通道3</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>通道4</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>通道5</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>通道6</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>通道7</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>通道8</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="m_chanChecked">
-          <property name="text">
-           <string>通道使能</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QPushButton" name="m_saveSettingBtn">
-        <property name="text">
-         <string>保存设置</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="m_openSettingBtn">
-        <property name="text">
-         <string>打开设置</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_14"/>
-      </item>
-     </layout>
-    </item>
+   <layout class="QGridLayout" name="gridLayout_6">
     <item row="1" column="0">
-     <layout class="QGridLayout" name="gridLayout_4">
+     <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
@@ -223,122 +120,7 @@
         </item>
        </layout>
       </item>
-      <item row="0" column="4">
-       <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout_9">
-          <item>
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>声速(m/s)</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QDoubleSpinBox" name="m_sonicV">
-            <property name="minimum">
-             <double>300.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>10000.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>10.000000000000000</double>
-            </property>
-            <property name="value">
-             <double>5950.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="1" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="QLabel" name="label_7">
-            <property name="text">
-             <string>声程(mm)</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QDoubleSpinBox" name="m_sonicPD">
-            <property name="minimum">
-             <double>10.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>3000.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>10.000000000000000</double>
-            </property>
-            <property name="value">
-             <double>300.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="2" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
-          <item>
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>起始偏移(mm)</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QDoubleSpinBox" name="m_offset">
-            <property name="maximum">
-             <double>1000.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>10.000000000000000</double>
-            </property>
-            <property name="value">
-             <double>20.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="6">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QPushButton" name="m_openSysBtn">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>启动系统</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="m_stopSysBtn">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>停止</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="2">
+      <item row="1" column="0">
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -472,53 +254,211 @@
         </item>
        </layout>
       </item>
-      <item row="0" column="3">
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Minimum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+      <item row="2" column="0">
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>声速(m/s)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="m_sonicV">
+            <property name="minimum">
+             <double>300.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>10000.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>5950.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>声程(mm)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="m_sonicPD">
+            <property name="minimum">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>3000.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>300.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>起始偏移(mm)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="m_offset">
+            <property name="maximum">
+             <double>1000.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>20.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </item>
-      <item row="0" column="5">
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Minimum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+     </layout>
+    </item>
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_12">
+        <item>
+         <widget class="QPushButton" name="m_saveSettingBtn">
+          <property name="text">
+           <string>保存设置</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="m_openSettingBtn">
+          <property name="text">
+           <string>打开设置</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer_5">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_11">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>通道使能选择</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="m_chanNo">
+            <item>
+             <property name="text">
+              <string>通道1</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>通道2</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>通道3</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>通道4</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>通道5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>通道6</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>通道7</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>通道8</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="m_chanChecked">
+          <property name="text">
+           <string>使能</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_13">
+      <item>
+       <widget class="QPushButton" name="m_openSysBtn">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Minimum</enum>
+        <property name="text">
+         <string>启动系统</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="m_stopSysBtn">
+        <property name="enabled">
+         <bool>false</bool>
         </property>
-       </spacer>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>停止</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

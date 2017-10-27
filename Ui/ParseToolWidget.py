@@ -50,14 +50,16 @@ class ParseToolWidget(ParseToolWidgetUi):
     def getGateList(self, chanNo = 0):
         return self.m_gateProcesser.getGateList(chanNo)
 
+    def getGateListByChano(self):
+        return self.m_gateProcesser.getGateListByChano()
+        
     def getChanNo(self):
         chan = self.ui.m_chanNo.currentIndex()
         return chan
 
-    def getDetectionMode(self, chanNo):
-        detectionMode = self.ui.m_detectionMode.currentIndex()
-        return detectionMode
-
+    def getDetectionModeByChan(self):
+        return self.m_detectionModeByChano
+        
     def getCurrentDetectionMode(self):
         detectionMode = self.ui.m_detectionMode.currentIndex()
         return detectionMode
@@ -91,7 +93,7 @@ class GateProcess(QtCore.QObject):
         gate3Ui = {'checked': self.ui.m_gate3Checked, 'start': self.ui.m_gate3Start,  \
         'length': self.ui.m_gate3Len, 'threshold': self.ui.m_gate3Threshold, 'color': "#0000FF", 'gain': None}
         gate4Ui = {'checked': self.ui.m_gate4Checked, 'start': self.ui.m_gate4Start,  \
-        'length': self.ui.m_gate4Len, 'threshold': self.ui.m_gate4Threshold, 'color': "#FFFF00", 'gain': self.ui.m_gateGain}
+        'length': self.ui.m_gate4Len, 'threshold': self.ui.m_gate4Threshold, 'color': "#00FFFF", 'gain': self.ui.m_gateGain}
         self.m_gateUiList = [gate1Ui, gate2Ui, gate3Ui, gate4Ui]
     
     def getDynaGate(self, chanNo):
@@ -100,6 +102,9 @@ class GateProcess(QtCore.QObject):
 
     def getGateList(self, chanNo):
         return self.m_gateListByChaNo[chanNo]
+
+    def getGateListByChano(self):
+        return self.m_gateListByChaNo
 
     def iterateGateUiList(self, callback):
         for index, gateUi in enumerate(self.m_gateUiList):

@@ -93,9 +93,9 @@ class AScanData(object):
         return self.m_parsedFrameDataDict
     
     def compressAScanList(self, chanNo):
-        recvInterval = 0.1
-        fps = 10
-        AScanListLen = int(round(recvInterval * fps))
+        recvInterval = 0.3
+        fps = 2
+        AScanListLen = max(int(round(recvInterval * fps)), 1)
         rawAScanListLen = len(self.m_parsedFrameDataDict[chanNo])
         step = max(int(rawAScanListLen / AScanListLen), 1)
         retList = []
@@ -104,6 +104,9 @@ class AScanData(object):
         return retList
         
     def limitDataRange(self, chanNo):
+        #lishuaiyuan
+        # maxData = 2 ** 10 - 1.0
+        # 
         maxData = 2 ** 10 - 1.0
         return np.array(self.compressAScanList(chanNo)) / maxData * 100
     
@@ -131,6 +134,17 @@ class AScanData(object):
         retAScanList = self.genDynaGainData(detectionData, dynaGainObj)
         #print retAScanList
         return retAScanList
+
+    def getAScanListByChano(self, detectionModeByChano, dynaGainObjByChano):
+        index = 0
+        aScanListByChano = []
+        for detectionMode in detectionModeByChano:
+            chanNo = index
+            dynaGainObj = dynaGainObjByChano[index]
+            aScanList = self.getAScanList(chanNo, detectionMode, dynaGainObj)
+            aScanListByChano.append(aScanList)
+            index += 1
+        return aScanListByChano
 
     def getRawAScanList(self, chanNo):
         return self.m_parsedFrameDataDict[chanNo]
