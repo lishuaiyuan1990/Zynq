@@ -300,7 +300,6 @@ class AScanMplCanvasMultiChano(MyMplCanvasMultiChano):
             index = 0
             for axes in self.axesSet:
                 scanPlotter, = axes.plot(scanData[index]['x'], scanData[index]['y'])
-                print "drawData ", index, len(scanData[index]['y'])
                 self.m_aScanPlotterSet.append(scanPlotter)
                 index += 1
         else:

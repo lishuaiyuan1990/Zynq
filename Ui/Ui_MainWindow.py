@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\MainWindow.ui'
 #
-# Created: Thu Oct 26 09:58:43 2017
+# Created: Sun Oct 29 11:31:23 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(1553, 1125)
+        MainWindow.resize(1498, 895)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -35,7 +35,7 @@ class Ui_MainWindow(object):
         self.centralWidget = QtGui.QWidget(MainWindow)
         self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
         self.m_aScanWidget = AScanWidgetMultiPlot(self.centralWidget)
-        self.m_aScanWidget.setGeometry(QtCore.QRect(260, 20, 1201, 841))
+        self.m_aScanWidget.setGeometry(QtCore.QRect(260, 20, 1211, 851))
         self.m_aScanWidget.setObjectName(_fromUtf8("m_aScanWidget"))
         self.groupBox = QtGui.QGroupBox(self.centralWidget)
         self.groupBox.setGeometry(QtCore.QRect(10, 10, 241, 461))
@@ -44,7 +44,7 @@ class Ui_MainWindow(object):
         self.m_parseToolWidget.setGeometry(QtCore.QRect(10, 20, 221, 421))
         self.m_parseToolWidget.setObjectName(_fromUtf8("m_parseToolWidget"))
         self.groupBox_2 = QtGui.QGroupBox(self.centralWidget)
-        self.groupBox_2.setGeometry(QtCore.QRect(10, 580, 241, 401))
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 473, 241, 401))
         self.groupBox_2.setObjectName(_fromUtf8("groupBox_2"))
         self.m_paraSetWidget = ParaSetWidget(self.groupBox_2)
         self.m_paraSetWidget.setGeometry(QtCore.QRect(10, 20, 221, 371))

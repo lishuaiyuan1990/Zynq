@@ -82,7 +82,7 @@ class MainWindow(MainWindowUi):
     #main thread
     def createThreadToRecvData(self):
         self.m_startSys = True
-        self.m_recvInterval = 0.3
+        self.m_recvInterval = 0.2
         self.m_timerThread = threading.Timer(self.m_recvInterval, self.recvScanData)
         self.m_timerThread.start()
         self.m_drawDone = True
@@ -140,7 +140,7 @@ class MainWindow(MainWindowUi):
         startOffset = min(max((gate.m_start - scanRange['start']) / length, 0), 1)
         endOffset   = min(max((gate.m_start + gate.m_len - scanRange['start']) / length, 0), 1)
         num = scanRange['num']
-        dynaGainRange = {'start': int(startOffset * num), 'end': int(endOffset * num)}
+        dynaGainRange = {'start': int(round(startOffset * num)), 'end': int(round(endOffset * num))}
         return {'gain': gain, 'dynaGainRange' : dynaGainRange}
 
     def drawGate(self):

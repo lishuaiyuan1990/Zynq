@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\Zynq\Ui\ParseToolWidget.ui'
 #
-# Created: Wed Oct 25 23:07:31 2017
+# Created: Sun Oct 29 11:31:22 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -275,7 +275,7 @@ class Ui_ParseToolWidget(object):
         self.m_gateGain.setMinimum(-3000.0)
         self.m_gateGain.setMaximum(3000.0)
         self.m_gateGain.setSingleStep(0.1)
-        self.m_gateGain.setProperty("value", 30.0)
+        self.m_gateGain.setProperty("value", 0.0)
         self.m_gateGain.setObjectName(_fromUtf8("m_gateGain"))
         self.horizontalLayout_8.addWidget(self.m_gateGain)
         self.gridLayout_3.addLayout(self.horizontalLayout_8, 2, 0, 1, 1)
@@ -286,7 +286,7 @@ class Ui_ParseToolWidget(object):
 
     def retranslateUi(self, ParseToolWidget):
         ParseToolWidget.setWindowTitle(_translate("ParseToolWidget", "Form", None))
-        self.label.setText(_translate("ParseToolWidget", "通道显示选择", None))
+        self.label.setText(_translate("ParseToolWidget", "通道选择", None))
         self.m_chanNo.setItemText(0, _translate("ParseToolWidget", "通道1", None))
         self.m_chanNo.setItemText(1, _translate("ParseToolWidget", "通道2", None))
         self.m_chanNo.setItemText(2, _translate("ParseToolWidget", "通道3", None))
