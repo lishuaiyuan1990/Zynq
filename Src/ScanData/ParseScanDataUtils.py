@@ -1,6 +1,8 @@
 import numpy as np
 
 class DetectionUtils(object):
+    rct = 100.0
+    oldData = 0
     def __init__(self):
         pass
     
@@ -40,10 +42,16 @@ class DetectionUtils(object):
         if data < 0:
             data *= -1
         data *= 2
-        return data
+        if (DetectionUtils.oldData <= data):
+            DetectionUtils.oldData = data
+        else:
+            delta = DetectionUtils.rct / (1.0 + DetectionUtils.rct)
+            DetectionUtils.oldData *= delta
+        return DetectionUtils.oldData
     
     @staticmethod
     def allDetection(aScanData):
+        DetectionUtils.oldData = 0
         return DetectionUtils.detection(aScanData, DetectionUtils.negativeToPositive)
 
 class DynaGainUtils(object):
